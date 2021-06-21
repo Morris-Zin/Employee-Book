@@ -31,7 +31,7 @@ export default function EmployeeContent({ employee }) {
     console.log("hi");
     dispatch(deleteEmployee(employee._id, history));
   };
-
+  console.log(employee.name)
   return (
     <Card className={classes.root}>
       <CardHeader

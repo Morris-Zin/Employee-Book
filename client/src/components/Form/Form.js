@@ -118,7 +118,6 @@ export default function Form() {
             ...formValues,
             salary: `${formValues.salary} ${formValues.currency}`,
             active: true,
-            addedDate: new Date().toISOString(),
           },
           param.id,
           history

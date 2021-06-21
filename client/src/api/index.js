@@ -7,7 +7,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
   API = axios.create({ baseURL: "http://localhost:8000" });
 } else {
   // production code
-  API = axios.create({ baseURL: "" });
+  API = axios.create({ baseURL: "https://employee-book-api.herokuapp.com/" });
 }
 export const FETCH_POSTS = () => API.get("/api/getEmployees");
 export const CREATE_POST = (postData) => API.post("/api/addEmployee", { postData });
