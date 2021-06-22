@@ -44,7 +44,6 @@ const Employee = ({
 
   const handleClick = () => {
     setCurrentId(id); 
-    console.log(id)
     history.push(`/showEmployee/${id}`)
   }
 

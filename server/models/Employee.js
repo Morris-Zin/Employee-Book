@@ -3,6 +3,10 @@ const { Schema } = mongoose;
 
 const employeeSchema = new Schema({
     name: String, 
+    creator: {
+        type: String, 
+        required: true
+    }, 
     // active or inActive
     active: {
         type: Boolean, 

@@ -22,13 +22,10 @@ userSchema.pre("save", async function(next) {
 })
 
 userSchema.statics.login = async function(email, password) { 
-    console.log('I am the login one')
     const user = await this.findOne({email: email}); 
-    console.log('This is the found user', user)
     const auth = await bcrypt.compareSync(password, user.password); 
     if(auth) {
-        console.log('this is the auth', auth); 
-        return user;
+        return user;    
     } else { 
         return ({response: "the password is incorrect"})
     }

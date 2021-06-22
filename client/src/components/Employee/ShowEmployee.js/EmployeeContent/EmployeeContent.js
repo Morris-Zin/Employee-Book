@@ -28,10 +28,8 @@ export default function EmployeeContent({ employee }) {
   const history = useHistory();
 
   const deleteThePost = () => {
-    console.log("hi");
     dispatch(deleteEmployee(employee._id, history));
   };
-  console.log(employee.name)
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -68,7 +66,7 @@ export default function EmployeeContent({ employee }) {
             {calculateWhenToPay(employee.startDate)} days{" "}
           </span>
           .The employee phone number is {""}
-          <span className={classes.focus}>{""}+95{employee.phoneNumber}</span> {""}
+          <span className={classes.focus}>{""}{'+'}{employee.phoneNumber}</span> {""}
           {employee.address
             ? `and the employee live in ${employee.address}.`
             : null}
@@ -77,7 +75,7 @@ export default function EmployeeContent({ employee }) {
       <CardActions disableSpacing>
         <Tooltip title={`Make a phone call to ${employee.name}`}>
           <IconButton aria-label="Make Phone Call">
-            <a href={`tel:+95${employee.phoneNumber}`} className={classes.link}>
+            <a href={`tel:+${employee.phoneNumber}`} className={classes.link}>
               <PhoneIcon />
             </a>
           </IconButton>

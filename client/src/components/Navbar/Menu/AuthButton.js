@@ -5,14 +5,13 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
-import SendIcon from "@material-ui/icons/Send";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import { Avatar } from "@material-ui/core";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import SubdirectoryArrowRightIcon from "@material-ui/icons/SubdirectoryArrowRight";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../../actions/users";
 
 const StyledMenu = withStyles({
   paper: {
@@ -40,13 +39,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StyledMenuItem = withStyles((theme) => ({
-}))(MenuItem);
+const StyledMenuItem = withStyles((theme) => ({}))(MenuItem);
 
-export default function AuthButton() {
+export default function AuthButton({user}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const history = useHistory();
+  const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -70,30 +69,33 @@ export default function AuthButton() {
         </Avatar>
       </Button>
       <StyledMenu
-        id="customized-menu"
+        id="customized-menu"  
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
-          <ListItemIcon>
-            <SubdirectoryArrowRightIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Sign In" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <LockOpenIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Log In" />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <ExitToAppIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Log Out" />
-        </StyledMenuItem>
+        {!user ? (
+          [
+            <StyledMenuItem onClick={() => history.push("/auth")} key={1}>
+              <ListItemIcon>
+                <SubdirectoryArrowRightIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Register" />
+            </StyledMenuItem>
+
+          ]
+        ) : (
+          <StyledMenuItem key={2}>
+            <ListItemIcon>
+              <ExitToAppIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText
+              primary="Log Out"
+              onClick={() => dispatch(logOut(history))}
+            />
+          </StyledMenuItem>
+        )}
       </StyledMenu>
     </div>
   );

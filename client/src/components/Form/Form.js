@@ -16,7 +16,30 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { createEmployee, editEmployee } from "../../actions/employees";
-import { Alert } from "@material-ui/lab";
+
+  // const decideIsValid = (formValues) => {
+  //   let decidentArray = [];
+
+  //   let { name, startDate, salary, address, phoneNumber } = formValues;
+  //   const neededValues = { name, startDate, salary, address, phoneNumber };
+
+  //   for (let i in neededValues) {
+  //     if (formValues[i]) {
+  //       decidentArray.push(true);
+  //     } else {
+  //       decidentArray.push(false);
+  //     }
+  //   }
+  //   let finalDecison;
+  //   decidentArray.forEach((el) => {
+  //     if (el) {
+  //       finalDecison = el;
+  //     } else {
+  //       finalDecison = el;
+  //     }
+  //   });
+  //   return finalDecison;
+  // };
 
 const currencies = [
   {
@@ -56,9 +79,7 @@ export default function Form() {
       ? state.employees.find((employee) => employee._id === param.id)
       : null;
   });
-
   useEffect(() => {
-    console.log(employee);
     if (employee) {
       const salary = employee.salary.split(" ")[0];
       setFormValues({ ...INITIAL_VALUES, ...employee, salary });
@@ -67,37 +88,11 @@ export default function Form() {
     }
   }, [employee]);
 
-  const decideIsValid = (formValues) => {
-    let decidentArray = [];
-
-    let { name, startDate, salary, address, phoneNumber } = formValues;
-    const neededValues = { name, startDate, salary, address, phoneNumber };
-
-    for (let i in neededValues) {
-      if (formValues[i]) {
-        decidentArray.push(true);
-      } else {
-        decidentArray.push(false);
-      }
-    }
-    let finalDecison;
-    decidentArray.forEach((el) => {
-      if (el) {
-        finalDecison = el;
-      } else {
-        finalDecison = el;
-      }
-    });
-    return finalDecison;
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const validForm = decideIsValid(formValues);
-    console.log(!param.id, validForm);
 
-    if (validForm && !param.id) {
-      console.log("I go into creating");
+    if ( !param.id) {
       dispatch(
         createEmployee(
           {
@@ -110,8 +105,7 @@ export default function Form() {
         )
       );
     }
-    if (validForm && param.id) {
-      console.log(" I go into editing");
+    if (param.id) {
       dispatch(
         editEmployee(
           {
@@ -124,11 +118,11 @@ export default function Form() {
         )
       );
     }
-    console.log({
-      ...formValues,
-      active: true,
-      addedDate: new Date().toISOString,
-    });
+    // console.log({
+    //   ...formValues,
+    //   active: true,
+    //   addedDate: new Date().toISOString,
+    // });
   };
 
   const handleChange = (e) => {
@@ -147,7 +141,7 @@ export default function Form() {
           {!employee ? 'Create a new Employee' : `Edit ${employee.name}`} 
         </Typography>
         <Typography component="h4" variant="h6"></Typography>
-        <form className={classes.form} onSubmit={onSubmit} noValidate>
+        <form className={classes.form} onSubmit={onSubmit} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -159,6 +153,7 @@ export default function Form() {
                 label="Name of the Employee"
                 onChange={handleChange}
                 value={formValues.name}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -172,6 +167,7 @@ export default function Form() {
                 onChange={handleChange}
                 helperText="Started Working Date"
                 value={formValues.startDate}
+                required
               />
             </Grid>
             <Grid item xs={12} sm={5}>
@@ -202,6 +198,7 @@ export default function Form() {
                 type="number"
                 onChange={handleChange}
                 value={formValues.salary}
+                required
               />
             </Grid>
 
@@ -214,9 +211,10 @@ export default function Form() {
                 label="Phone Number"
                 // type="number"
                 id="phoneNumber"
-                helperText="Do not inclue '09'"
+                helperText="Include your country phone number suffix"
                 onChange={handleChange}
                 value={formValues.phoneNumber}
+                required
               />
             </Grid>
             <Grid item xs={12}>
@@ -229,6 +227,7 @@ export default function Form() {
                 id="address"
                 onChange={handleChange}
                 value={formValues.address}
+                required
               />
             </Grid>
           </Grid>
@@ -238,6 +237,7 @@ export default function Form() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            required
           >
             Add Now
           </Button>

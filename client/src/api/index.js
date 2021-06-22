@@ -4,12 +4,27 @@ let API;
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
   // dev code
-  API = axios.create({ baseURL: "http://localhost:8000" });
+  API = axios.create({ baseURL: "http://localhost:8000/api" });
 } else {
   // production code
-  API = axios.create({ baseURL: "https://employee-book-api.herokuapp.com/" });
+  API = axios.create({
+    baseURL: "https://employee-book-api.herokuapp.com/api",
+  });
 }
-export const FETCH_POSTS = () => API.get("/api/getEmployees");
-export const CREATE_POST = (postData) => API.post("/api/addEmployee", { postData });
-export const EDIT_POST = (postData, id) => API.patch(`/api/editEmployee/${id}`, { postData });
-export const DELETE_POST = (id) => API.delete(`/api/deleteEmployee/${id}`)
+
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("profile")) {
+    const token = JSON.parse(localStorage.getItem("profile")).token;
+    req.headers.authorization = `Bearer ${token}`;
+  }
+  return req;
+});
+
+export const FETCH_POSTS = () => API.get("/getEmployees");
+export const CREATE_POST = (postData) => API.post("/addEmployee", { postData });
+export const EDIT_POST = (postData, id) =>
+  API.patch(`/editEmployee/${id}`, { postData });
+export const DELETE_POST = (id) => API.delete(`/deleteEmployee/${id}`);
+
+export const SIGNUP_USER = (userData) => API.post("/signup", { userData });
+export const LOGIN_USER = (userData) => API.post("/login", { userData });

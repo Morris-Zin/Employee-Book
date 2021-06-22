@@ -1,49 +1,24 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar/Navbar";
-import Employees from "./Employee/Empoyees";
-import { CssBaseline, Link } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { getEmployees } from "../actions/employees";
+import React from "react";
+import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Form from "./Form/Form";
-import ShowEmployee from "./Employee/ShowEmployee.js/ShowEmployee";
-const App = () => {
-  const dispatch = useDispatch();
-  const [currentId, setCurrentId] = useState(null);
+import Home from "./Home/Home";
+import AuthForm from "./Auth/AuthForm";
 
-  useEffect(() => {
-    dispatch(getEmployees());
-  }, [dispatch]);
+const App = () => {
 
   return (
     <div>
       <BrowserRouter>
         <CssBaseline>
-          <Navbar />
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => {
-               return <Employees {...props} setCurrentId={setCurrentId} />;
-              }}
-            />
-
-            <Route exact path="/addEmployee" component={Form} />
-            <Route exact path="/editEmployee/:id/edit" component={Form} />
-
-            <Route
-              exact
-              path="/showEmployee/:id"
-              render={(props) => {
-                return <ShowEmployee {...props} currentId={currentId} />;
-              }}
-            />
+          <Route  exact path="/auth" component={AuthForm}/>
+            <Route component={Home} />
           </Switch>
         </CssBaseline>
       </BrowserRouter>
     </div>
   );
 };
+
 
 export default App;

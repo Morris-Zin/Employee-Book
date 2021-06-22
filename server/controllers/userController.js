@@ -3,9 +3,9 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
-  const { name, email, password, confirmPassword } = req.body;
+  const { name, email, password } = req.body.userData;
   try {
-    if (!name || !email || !password || password !== confirmPassword)
+    if (!name || !email || !password )
       return res.json({ message: "Not valid to register" });
 
     const existingUser = await User.findOne({ email });
@@ -19,18 +19,21 @@ const signup = async (req, res) => {
       process.env.JWT_KEY,
       { expiresIn: "7h" }
     );
-    res.json({ newUser, token });
+    res.json({ response: newUser, token });
   } catch (e) {
     console.log(e);
   }
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+
+  const { email, password } = req.body.userData;
+
+  if (!email || !password )
+  return res.json({ message: "Not valid to register" });
 
   const user = await User.login(email, password);
 
-  console.log("this is the comming back user", user);
 
   try {
     if (user && !user.response) {
@@ -39,7 +42,7 @@ const login = async (req, res) => {
         process.env.JWT_KEY,
         { expiresIn: "7h" }
       );
-      res.json({ user, token });
+      res.json({ response: user, token });
     } else {
       res.json({ response: user.response });
     }
