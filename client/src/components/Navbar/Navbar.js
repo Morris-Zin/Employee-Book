@@ -28,7 +28,7 @@ const Navbar = () => {
     
     if(userToken) {
       const expireDate = decode(userToken).exp; 
-      expireDate * 1000 < new Date().getTime() && logout()
+      expireDate * 1000 < new Date().getTime() && logout(history)
     } 
     setUser(JSON.parse(localStorage.getItem("profile")))
 
