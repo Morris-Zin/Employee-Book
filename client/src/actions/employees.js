@@ -14,7 +14,7 @@ export const createEmployee = (postData, history) => async (dispatch) => {
   try {
     const { data } = await CREATE_POST(postData);
     dispatch({type: CREATE, payload: data.response})
-    history.push('/')
+    history.push('/dashboard')
   } catch (error) {
     console.log(error); 
   }
@@ -23,7 +23,7 @@ export const editEmployee = (postData, id, history) => async (dispatch) => {
   try {
     const { data } = await EDIT_POST(postData, id); 
     dispatch({type: EDIT, payload: data.updatedEmployee})
-    history.push('/')
+    history.push('/dashboard')
   } catch (error) {
     console.log(error)
   }
@@ -32,7 +32,7 @@ export const deleteEmployee =  (id, history) => async (dispatch) => {
   try {
     await DELETE_POST(id); 
      dispatch({type: DELETE, id})
-     history.push('/')
+     history.push('/dashboard')
   } catch (error) {
     console.log(error); 
   }

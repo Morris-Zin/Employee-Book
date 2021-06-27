@@ -92,7 +92,7 @@ export default function Form() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if ( !param.id) {
+    if (!param.id) {
       dispatch(
         createEmployee(
           {
@@ -105,6 +105,7 @@ export default function Form() {
         )
       );
     }
+    console.log('param id', param.id)
     if (param.id) {
       dispatch(
         editEmployee(

@@ -6,7 +6,7 @@ export const signup = (postData, history) => async (dispatch) => {
 
   if (data.response && typeof data.response !== "string") {
     await dispatch({ type: SIGN_UP, payload: data });
-    history.push("/");
+    history.push("/dashboard");
   }
 };
 
@@ -16,11 +16,11 @@ export const logIn = (postData, history) => async (dispatch) => {
   
   if (data.response && typeof data.response !== "string") {
     await dispatch({ type: LOG_IN, payload: data });
-    history.push("/");
+    history.push("/dashboard");
   }
 };
 
 export const logOut = (history) => async (dispatch) => {
   await dispatch({ type: LOG_OUT });
-  history.push("/");
+  history.push("/dashboard");
 };

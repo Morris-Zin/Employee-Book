@@ -24,7 +24,7 @@ const Home = () => {
       <Navbar />
       <Route
         exact
-        path="/"
+        path="/dashboard"
         render={(props) => {
           return <Employees {...props} setCurrentId={setCurrentId} />;
         }}

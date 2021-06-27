@@ -90,7 +90,6 @@ const addEmployee = async (req, res) => {
 const editEmployee = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
 
     const { userId } = req;
 
@@ -122,6 +121,7 @@ const deleteEmployee = async (req, res) => {
 
   await Employee.findByIdAndDelete(id);
   res.send("Successfully deleted the post");
+  res.send();
 };
 module.exports = {
   getEmployees,
