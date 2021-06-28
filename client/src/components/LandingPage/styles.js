@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     color: "white",
     maxWidth: "700px",
+    textAlign: 'center'
   },
   title: {
     marginBottom: "20px",

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Card, CardHeader, Typography} from "@material-ui/core";
+import { Grid, Card, CardHeader } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import useStyles from "./styles";
 import Employee from "./Employee/Employee";
@@ -10,14 +10,10 @@ const Empoyees = ({ setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   return (
-    <Grid
-      alignItems="stretch"
-      className={`${classes.margin} ${classes.mainContainer}`}
-      container
-    >
+    <Grid alignItems="stretch" className={classes.mainContainer} container>
       {user ? (
-      employees.length && employees && typeof employees !== 'string' ? 
-         employees.map((employee) => (
+        employees.length && employees && typeof employees !== "string" ? (
+          employees.map((employee) => (
             <Grid
               key={employee._id}
               xs={12}
@@ -38,10 +34,14 @@ const Empoyees = ({ setCurrentId }) => {
               />
             </Grid>
           ))
-        : "There aren't any employee in your workshop right now 👀")
-      : (
+        ) : (
+          "There aren't any employee in your workshop right now 👀"
+        )
+      ) : (
         <Card className={classes.card}>
-          <CardHeader  title="Please Sign into your workshop to create and see employees" titleTypographyProps={{variant: 'h6'}}
+          <CardHeader
+            title="Please Sign into your workshop to create and see employees"
+            titleTypographyProps={{ variant: "h6" }}
           />
         </Card>
       )}

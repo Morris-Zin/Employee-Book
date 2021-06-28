@@ -16,30 +16,30 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { createEmployee, editEmployee } from "../../actions/employees";
+import UploadImage from "./UploadImage/UploadImage";
+// const decideIsValid = (formValues) => {
+//   let decidentArray = [];
 
-  // const decideIsValid = (formValues) => {
-  //   let decidentArray = [];
+//   let { name, startDate, salary, address, phoneNumber } = formValues;
+//   const neededValues = { name, startDate, salary, address, phoneNumber };
 
-  //   let { name, startDate, salary, address, phoneNumber } = formValues;
-  //   const neededValues = { name, startDate, salary, address, phoneNumber };
-
-  //   for (let i in neededValues) {
-  //     if (formValues[i]) {
-  //       decidentArray.push(true);
-  //     } else {
-  //       decidentArray.push(false);
-  //     }
-  //   }
-  //   let finalDecison;
-  //   decidentArray.forEach((el) => {
-  //     if (el) {
-  //       finalDecison = el;
-  //     } else {
-  //       finalDecison = el;
-  //     }
-  //   });
-  //   return finalDecison;
-  // };
+//   for (let i in neededValues) {
+//     if (formValues[i]) {
+//       decidentArray.push(true);
+//     } else {
+//       decidentArray.push(false);
+//     }
+//   }
+//   let finalDecison;
+//   decidentArray.forEach((el) => {
+//     if (el) {
+//       finalDecison = el;
+//     } else {
+//       finalDecison = el;
+//     }
+//   });
+//   return finalDecison;
+// };
 
 const currencies = [
   {
@@ -88,7 +88,6 @@ export default function Form() {
     }
   }, [employee]);
 
-
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -105,7 +104,7 @@ export default function Form() {
         )
       );
     }
-    console.log('param id', param.id)
+    console.log("param id", param.id);
     if (param.id) {
       dispatch(
         editEmployee(
@@ -135,14 +134,12 @@ export default function Form() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <PostAddIcon />
-        </Avatar>
+        
         <Typography component="h1" variant="h5">
-          {!employee ? 'Create a new Employee' : `Edit ${employee.name}`} 
+          {!employee ? "Create a new Employee" : `Edit ${employee.name}`}
         </Typography>
         <Typography component="h4" variant="h6"></Typography>
-        <form className={classes.form} onSubmit={onSubmit} >
+        <form className={classes.form} onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -154,7 +151,6 @@ export default function Form() {
                 label="Name of the Employee"
                 onChange={handleChange}
                 value={formValues.name}
-                required
               />
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -168,8 +164,10 @@ export default function Form() {
                 onChange={handleChange}
                 helperText="Started Working Date"
                 value={formValues.startDate}
-                required
               />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <UploadImage/>
             </Grid>
             <Grid item xs={12} sm={5}>
               <TextField
@@ -199,7 +197,6 @@ export default function Form() {
                 type="number"
                 onChange={handleChange}
                 value={formValues.salary}
-                required
               />
             </Grid>
 
@@ -215,7 +212,6 @@ export default function Form() {
                 helperText="Include your country phone number suffix"
                 onChange={handleChange}
                 value={formValues.phoneNumber}
-                required
               />
             </Grid>
             <Grid item xs={12}>
@@ -228,7 +224,6 @@ export default function Form() {
                 id="address"
                 onChange={handleChange}
                 value={formValues.address}
-                required
               />
             </Grid>
           </Grid>
@@ -244,9 +239,6 @@ export default function Form() {
           </Button>
         </form>
       </div>
-      <Box mt={5}>
-        <CopyRight />
-      </Box>
     </Container>
   );
 }

@@ -4,7 +4,7 @@ const awsSecretKeyId = process.env.awsAccessKeyId;
 const awsSecretAccessKey = process.env.Y1NmH5Gw4CuRY5RAbIWf4LupFnu8UhUmbyW2R5TZ;
 
 // Aws bucker name
-const employeeBucket = "employee-books-images";
+const EMPLOYEE_BUCKET = "employee-books-images";
 
 aws.config.update({
     secretAccessKey: awsSecretAccessKey, 
@@ -48,5 +48,5 @@ const getSignedRequest = async (req, res, bucketName) => {
   });
 };
 
-exports.employeeBucket = employeeBucket; 
+exports.EMPLOYEE_BUCKET = EMPLOYEE_BUCKET; 
 exports.getSignedRequest = getSignedRequest;

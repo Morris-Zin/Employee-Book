@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import Navbar from "../Navbar/Navbar";
-import Employees from "../Employee/Empoyees";
+import Employees from "../Employee/Empoyees"; 
 import Form from "../Form/Form";
 import ShowEmployee from "../Employee/ShowEmployee.js/ShowEmployee";
 import { getEmployees } from "../../actions/employees";

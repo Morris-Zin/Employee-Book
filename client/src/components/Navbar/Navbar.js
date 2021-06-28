@@ -10,8 +10,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import useStyles from "./styles";
 import { Link, useLocation } from "react-router-dom";
 import AuthButton from "./Menu/AuthButton";
-import decode from 'jwt-decode';
-import {useHistory } from "react-router-dom";
+import decode from "jwt-decode";
+import { useHistory } from "react-router-dom";
 import { logOut } from "../../actions/users";
 import { LOG_OUT } from "../../CONSTANTS/actionTypes";
 import { useDispatch } from "react-redux";
@@ -20,27 +20,24 @@ const Navbar = () => {
   const classes = useStyles();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const history = useHistory();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
-    const userToken = user?.token; 
-    
-    if(userToken) {
-      const expireDate = decode(userToken).exp; 
-      expireDate * 1000 < new Date().getTime() && logout(history)
-    } 
-    setUser(JSON.parse(localStorage.getItem("profile")))
+    const userToken = user?.token;
 
+    if (userToken) {
+      const expireDate = decode(userToken).exp;
+      expireDate * 1000 < new Date().getTime() && logout(history);
+    }
+    setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
-
   const logout = () => {
-    dispatch(logOut({type: LOG_OUT})); 
-    setUser(null); 
-    history.push('/');
-  }
-
+    dispatch(logOut({ type: LOG_OUT }));
+    setUser(null);
+    history.push("/");
+  };
 
   return (
     <AppBar position="static" className={classes.navBar}>
@@ -55,7 +52,7 @@ const Navbar = () => {
         </IconButton>
         <Typography
           component={Link}
-          to="/"
+          to={`${user ? "/dashboard" : "/"}`}
           variant="h6"
           className={classes.title}
         >
