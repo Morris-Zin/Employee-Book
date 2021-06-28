@@ -122,7 +122,7 @@ function AuthFrom() {
                 <Tooltip title="Go back to home page">
                   <IconButton
                     className={classes.goback}
-                    onClick={() => history.push("/")}
+                    onClick={() => history.push("/dashboard")}
                   >
                     <KeyboardBackspaceIcon />
                   </IconButton>
