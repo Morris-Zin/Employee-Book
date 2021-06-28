@@ -3,6 +3,7 @@ import { Button, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import LandingImage from "../../images/landingImage.jfif";
 import useStyles from "./styles";
+import CopyRight from "../utils/CopyRight";
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -29,6 +30,10 @@ const LandingPage = () => {
         >
           Explore Now
         </Button>
+        <div className={classes.footer}>
+          <span className={classes.CopyRight}>CopyRight © {new Date().getFullYear()}</span>
+        @Morris-Zin
+        </div>
       </div>
     </div>
   );

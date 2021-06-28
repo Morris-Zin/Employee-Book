@@ -38,7 +38,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.9rem', 
     '&:hover': {
      background: '#ff8c00'
-    }
+    },
   },
+  footer: {
+    display: 'flex',
+    justifyContent: 'center', 
+    position: "absolute",
+    bottom: '15px',
+    left: '50%', 
+    transform: 'translate(-50%,-50%)', 
+    opacity: '0.5'
+  },
+  CopyRight: {
+    display: 'inline-block', 
+    marginRight: '16px'  
+  }
 }));
 export default useStyles;
