@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { createEmployee, editEmployee } from "../../actions/employees";
 import UploadImage from "./UploadImage/UploadImage";
+import axios from "axios";
 // const decideIsValid = (formValues) => {
 //   let decidentArray = [];
 
@@ -69,6 +70,8 @@ const INITIAL_VALUES = {
 
 export default function Form() {
   const [formValues, setFormValues] = useState(INITIAL_VALUES);
+  const [imageSrc, setImageSrc] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -123,22 +126,52 @@ export default function Form() {
     //   active: true,
     //   addedDate: new Date().toISOString,
     // });
+    selectedFile && handleFileUpload(selectedFile);
   };
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
-    // decideIsValid(formValues);
+  };
+
+  const handleFileUpload = (file) => {
+    const fileParts = file.name.split(".");
+    const fileName = fileParts[0];
+    const fileType = fileParts[1];
+    axios
+      .post("http://localhost:8000/api/uploadEmployeeImages", {
+        fileName,
+        fileType,
+      })
+      .then((response) => {
+        const returnData = response.data.data.returnData;
+        const signedRequest = returnData.signedRequest;
+        const url = returnData.url;
+        console.log(signedRequest, url, "from client");
+
+        const options = {
+          headers: {
+            "Content-Type": fileType,
+            "x-amz-acl": "public-read",
+          },
+        };
+
+        axios
+          .put(signedRequest, file, options)
+          .then(() => console.log("File uploaded successfully"))
+          .catch((e) => console.log(e));
+      })
+      .catch((e) => {
+        console.log("there is an error", e);
+      });
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        
         <Typography component="h1" variant="h5">
           {!employee ? "Create a new Employee" : `Edit ${employee.name}`}
         </Typography>
-        <Typography component="h4" variant="h6"></Typography>
         <form className={classes.form} onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
@@ -167,7 +200,13 @@ export default function Form() {
               />
             </Grid>
             <Grid item xs={12} sm={12}>
-              <UploadImage/>
+              <UploadImage
+                setImageSrc={setImageSrc}
+                setSelectedFile={setSelectedFile}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              {imageSrc && <img alt="Employee" height="300px" src={imageSrc} />}
             </Grid>
             <Grid item xs={12} sm={5}>
               <TextField

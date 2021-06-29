@@ -1,16 +1,19 @@
 const aws = require("aws-sdk");
 const { v4: uuid } = require("uuid");
+require("dotenv").config();
 const awsSecretKeyId = process.env.awsAccessKeyId;
-const awsSecretAccessKey = process.env.Y1NmH5Gw4CuRY5RAbIWf4LupFnu8UhUmbyW2R5TZ;
+const awsSecretAccessKey = process.env.awsSecretAccessKey;
+
+console.log("aws credentials", awsSecretAccessKey, awsSecretAccessKey);
 
 // Aws bucker name
-const EMPLOYEE_BUCKET = "employee-books-images";
-
+const EMPLOYEE_BUCKET = "employee-book-images";
 aws.config.update({
-    secretAccessKey: awsSecretAccessKey, 
-    accessKeyId: awsSecretKeyId,
-    region: 'ap-southeast-1'
-})
+  apiVersion: "2006-03-01",
+  secretAccessKey: awsSecretAccessKey,
+  accessKeyId: awsSecretKeyId,
+  region: "ap-southeast-1",
+});
 
 //Get signed request function to upload our images
 const getSignedRequest = async (req, res, bucketName) => {
@@ -42,11 +45,11 @@ const getSignedRequest = async (req, res, bucketName) => {
       signedRequest: data,
       url: `https://${bucketName}.s3.amazonaws.com/${fileKey}`,
     };
-    console.log('This is return data', returnData)
+    console.log("This is return data", returnData);
     //giving back client
-    res.json({data: {returnData}})
+    res.json({ data: { returnData } });
   });
 };
 
-exports.EMPLOYEE_BUCKET = EMPLOYEE_BUCKET; 
+exports.EMPLOYEE_BUCKET = EMPLOYEE_BUCKET;
 exports.getSignedRequest = getSignedRequest;
