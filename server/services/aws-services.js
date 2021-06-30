@@ -1,4 +1,5 @@
 const aws = require("aws-sdk");
+const AmazonS3Uri = require("amazon-s3-uri");
 const { v4: uuid } = require("uuid");
 require("dotenv").config();
 const awsSecretKeyId = process.env.awsAccessKeyId;
@@ -34,7 +35,7 @@ const getSignedRequest = async (req, res, bucketName) => {
     ACL: "public-read",
   };
 
-  //uploading an image and getting a signed url which we can see our images;
+  //uploading an image and getting a signed url which we can upload our images;
   s3.getSignedUrl("putObject", s3Params, (err, data) => {
     if (err) {
       console.log(err);
@@ -51,5 +52,33 @@ const getSignedRequest = async (req, res, bucketName) => {
   });
 };
 
+const deleteS3Image = (currentPhoto) => {
+  const s3 = new aws.S3();
+  try {
+    const { region, bucket, key } = AmazonS3Uri(currentPhoto);
+
+    console.log(
+      "those are returned object from amazons3uri",
+      region,
+      bucket,
+      key
+    );
+    const EMPLOYEE_BUCKET = "employee-book-images";
+
+    const deleteParams = {
+      Bucket: EMPLOYEE_BUCKET,
+      Key: key,
+    };
+
+    s3.deleteObject(deleteParams, (err, data) => {
+      if (err) console.log(err);
+      else console.log("deleted successfully");
+    });
+  } catch (error) {
+    console.warn(`${currentPhoto} cannot be deleted in deleteS3Image function`);
+  }
+};
+
 exports.EMPLOYEE_BUCKET = EMPLOYEE_BUCKET;
 exports.getSignedRequest = getSignedRequest;
+exports.deleteS3Image = deleteS3Image;

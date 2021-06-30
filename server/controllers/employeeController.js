@@ -1,5 +1,6 @@
 const Employee = require("../models/Employee");
 const mongoose = require("mongoose");
+const { deleteS3Image } = require("../services/aws-services");
 
 const getEmployees = async (req, res) => {
   try {
@@ -97,12 +98,19 @@ const editEmployee = async (req, res) => {
     const { userId } = req;
 
     const foundEmployee = await Employee.findById(id);
+
     if (userId != foundEmployee.creator) {
       return res.json({
         response: "You aren't allow to edit if you are not logged in",
       });
     }
+    const oldProfilePic = foundEmployee.imageUrl; 
+    await deleteS3Image(oldProfilePic)
+
     const employee = req.body.postData;
+
+    console.log("showing employee update image in server site", employee.imageUrl)
+    
     const updatedEmployee = await Employee.findByIdAndUpdate(id, employee, {
       new: true,
     });
@@ -121,7 +129,7 @@ const deleteEmployee = async (req, res) => {
     return res.json({
       response: "You aren't allow to edit if you are not logged in",
     });
-
+  deleteS3Image(employee.imageUrl)
   await Employee.findByIdAndDelete(id);
   res.send("Successfully deleted the post");
   res.send();

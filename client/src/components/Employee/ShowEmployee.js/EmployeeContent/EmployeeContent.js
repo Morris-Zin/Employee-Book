@@ -50,7 +50,7 @@ export default function EmployeeContent({ employee }) {
       />
       <CardMedia
         className={classes.media}
-        image="https://images.unsplash.com/photo-1551434678-e076c223a692?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGVtcGxveWVlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
+        image={employee.imageUrl}
         title="Paella dish"
       />
       <CardContent>

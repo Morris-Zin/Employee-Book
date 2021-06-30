@@ -148,6 +148,7 @@ export default function Form() {
                     ...formValues,
                     salary: `${formValues.salary} ${formValues.currency}`,
                     active: true,
+                    imageUrl: url,
                   },
                   param.id,
                   history
