@@ -12,6 +12,9 @@ const employeeSchema = new Schema({
         type: Boolean, 
         default: true,
     }, 
+    imageUrl: {
+        type: String, 
+    }, 
     // Date they started working
     startDate: {
         type: String, 

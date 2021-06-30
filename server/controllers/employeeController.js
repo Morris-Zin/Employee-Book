@@ -16,6 +16,7 @@ const getEmployees = async (req, res) => {
         salary: 1,
         address: 1,
         creator: 1,
+        imageUrl: 1, 
       }
     );
     if (!employees.length) return res.json({ response: [] });
@@ -69,6 +70,7 @@ const addEmployee = async (req, res) => {
       salary,
       _id,
       creator,
+      imageUrl
     } = employee;
     res.json({
       response: {
@@ -80,6 +82,7 @@ const addEmployee = async (req, res) => {
         salary,
         _id,
         creator,
+        imageUrl
       },
     });
   } catch (error) {

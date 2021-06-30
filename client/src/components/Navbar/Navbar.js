@@ -13,7 +13,6 @@ import AuthButton from "./Menu/AuthButton";
 import decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import { logOut } from "../../actions/users";
-import { LOG_OUT } from "../../CONSTANTS/actionTypes";
 import { useDispatch } from "react-redux";
 
 const Navbar = () => {
@@ -34,7 +33,7 @@ const Navbar = () => {
   }, [location]);
 
   const logout = () => {
-    dispatch(logOut({ type: LOG_OUT }));
+    dispatch(logOut(history));
     setUser(null);
     history.push("/");
   };

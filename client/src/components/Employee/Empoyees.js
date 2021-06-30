@@ -29,6 +29,7 @@ const Empoyees = ({ setCurrentId }) => {
                 addedDate={employee.addedDate}
                 phoneNumber={employee.phoneNumber}
                 salary={employee.salary}
+                imageUrl={employee.imageUrl}
                 id={employee._id}
                 key={employee._id}
               />

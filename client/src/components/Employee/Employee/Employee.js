@@ -32,8 +32,8 @@ const Employee = ({
   salary,
   id,
   setCurrentId,
+  imageUrl,
 }) => {
-
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -43,9 +43,9 @@ const Employee = ({
   };
 
   const handleClick = () => {
-    setCurrentId(id); 
-    history.push(`/showEmployee/${id}`)
-  }
+    setCurrentId(id);
+    history.push(`/showEmployee/${id}`);
+  };
 
   return (
     <CssBaseline>
@@ -58,7 +58,7 @@ const Employee = ({
             </IconButton>
           }
           title={name}
-          subheader={  moment(addedDate).fromNow()}
+          subheader={moment(addedDate).fromNow()}
           titleTypographyProps={{ variant: "h6" }}
           subheaderTypographyProps={{ variant: "caption" }}
         />
@@ -66,7 +66,7 @@ const Employee = ({
         <CardActionArea onClick={handleClick}>
           <CardMedia
             className={classes.media}
-            image={DEFAULT_IMAGE}
+            image={imageUrl || DEFAULT_IMAGE}
             title={name}
           />
           <CardContent>
