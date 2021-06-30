@@ -95,74 +95,70 @@ export default function Form() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedFile) return;
+    
     setIsLoading(true);
-    const fileParts = selectedFile.name.split(".");
-    const fileName = fileParts[0];
-    const fileType = fileParts[1];
-    axios
-      .post("http://localhost:8000/api/uploadEmployeeImages", {
-        fileName,
-        fileType,
-      })
-      .then((response) => {
-        const returnData = response.data.data.returnData;
-        const signedRequest = returnData.signedRequest;
-        const url = returnData.url;
-        console.log(signedRequest, url, "from client");
 
-        console.log(
-          "This is imageUrl from client side in image uploading",
-          url
-        );
-        const options = {
-          headers: {
-            "Content-Type": fileType,
-            "x-amz-acl": "public-read",
+    let url; 
+
+    if(selectedFile) {
+      const fileParts = selectedFile.name.split(".");
+      const fileName = fileParts[0];
+      const fileType = fileParts[1];
+      const response = await axios.post(
+        "http://localhost:8000/api/uploadEmployeeImages",
+        {
+          fileName,
+          fileType,
+        }
+      );
+      const returnData = response.data.data.returnData;
+      const signedRequest = returnData.signedRequest;
+       url = returnData.url;
+      console.log(signedRequest, url, "from client");
+  
+      console.log("This is imageUrl from client side in image uploading", url);
+      const options = {
+        headers: {
+          "Content-Type": fileType,
+          "x-amz-acl": "public-read",
+        },
+      };
+  
+      await axios.put(signedRequest, selectedFile, options);
+  
+    }
+
+    console.log("File uploaded successfully");
+    if (!param.id) {
+      dispatch(
+        createEmployee(
+          {
+            ...formValues,
+            salary: `${formValues.salary} ${formValues.currency}`,
+            active: true,
+            addedDate: new Date().toISOString(),
+            imageUrl: url || "",
           },
-        };
-
-        axios
-          .put(signedRequest, selectedFile, options)
-          .then(() => {
-            console.log("File uploaded successfully");
-            if (!param.id) {
-              dispatch(
-                createEmployee(
-                  {
-                    ...formValues,
-                    salary: `${formValues.salary} ${formValues.currency}`,
-                    active: true,
-                    addedDate: new Date().toISOString(),
-                    imageUrl: url,
-                  },
-                  history
-                )
-              );
-            }
-            console.log("param id", param.id);
-            if (param.id) {
-              dispatch(
-                editEmployee(
-                  {
-                    ...formValues,
-                    salary: `${formValues.salary} ${formValues.currency}`,
-                    active: true,
-                    imageUrl: url,
-                  },
-                  param.id,
-                  history
-                )
-              );
-            }
-            console.log("this is the final thing", url);
-          })
-          .catch((e) => console.log(e));
-      })
-      .catch((e) => {
-        console.log("there is an error", e);
-      });
-
+          history
+        )
+      );
+    }
+    console.log("param id", param.id);
+    if (param.id) {
+      dispatch(
+        editEmployee(
+          {
+            ...formValues,
+            salary: `${formValues.salary} ${formValues.currency}`,
+            active: true,
+            imageUrl: url || "",
+          },
+          param.id,
+          history
+        )
+      );
+    }
+    console.log("this is the final thing", url);
     // console.log({
     //   ...formValues,
     //   active: true,

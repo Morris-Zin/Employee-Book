@@ -66,7 +66,7 @@ const Employee = ({
         <CardActionArea onClick={handleClick}>
           <CardMedia
             className={classes.media}
-            image={imageUrl || DEFAULT_IMAGE}
+            image={!imageUrl ? DEFAULT_IMAGE : imageUrl}
             title={name}
           />
           <CardContent>

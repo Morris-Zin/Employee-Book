@@ -22,6 +22,10 @@ import EditIcon from "@material-ui/icons/Edit";
 import { Link } from "react-router-dom";
 import calculateWhenToPay from "../../../utils/calculateWhenToPay";
 
+const DEFAULT_IMAGE =
+  "https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png";
+
+
 export default function EmployeeContent({ employee }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -50,7 +54,7 @@ export default function EmployeeContent({ employee }) {
       />
       <CardMedia
         className={classes.media}
-        image={employee.imageUrl}
+        image={!employee.imageUrl ? DEFAULT_IMAGE : employee.imageUrl}
         title="Paella dish"
       />
       <CardContent>
