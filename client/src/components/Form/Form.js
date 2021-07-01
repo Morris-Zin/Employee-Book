@@ -14,29 +14,6 @@ import { useHistory, useParams } from "react-router-dom";
 import { createEmployee, editEmployee } from "../../actions/employees";
 import UploadImage from "./UploadImage/UploadImage";
 import axios from "axios";
-// const decideIsValid = (formValues) => {
-//   let decidentArray = [];
-
-//   let { name, startDate, salary, address, phoneNumber } = formValues;
-//   const neededValues = { name, startDate, salary, address, phoneNumber };
-
-//   for (let i in neededValues) {
-//     if (formValues[i]) {
-//       decidentArray.push(true);
-//     } else {
-//       decidentArray.push(false);
-//     }
-//   }
-//   let finalDecison;
-//   decidentArray.forEach((el) => {
-//     if (el) {
-//       finalDecison = el;
-//     } else {
-//       finalDecison = el;
-//     }
-//   });
-//   return finalDecison;
-// };
 
 const currencies = [
   {
@@ -162,41 +139,6 @@ export default function Form() {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
 
-  // const handleFileUpload = (file) => {
-  //   const fileParts = file.name.split(".");
-  //   const fileName = fileParts[0];
-  //   const fileType = fileParts[1];
-  //   axios
-  //     .post("http://localhost:8000/api/uploadEmployeeImages", {
-  //       fileName,
-  //       fileType,
-  //     })
-  //     .then((response) => {
-  //       const returnData = response.data.data.returnData;
-  //       const signedRequest = returnData.signedRequest;
-  //       const url = returnData.url;
-  //       console.log(signedRequest, url, "from client");
-  //       console.log('This is imageUrl from client side in image uploading', url)
-  //       const options = {
-  //         headers: {
-  //           "Content-Type": fileType,
-  //           "x-amz-acl": "public-read",
-  //         },
-  //       };
-
-  //       axios
-  //         .put(signedRequest, file, options)
-  //         .then(() => {
-  //           console.log("File uploaded successfully");
-  //           setImageUrl(url)
-  //           console.log('this is the final thing', url)
-  //         })
-  //         .catch((e) => console.log(e));
-  //     })
-  //     .catch((e) => {
-  //       console.log("there is an error", e);
-  //     });
-  // };
 
   return (
     <Container component="main" maxWidth="xs">
