@@ -67,23 +67,22 @@ export default function Form() {
     }
   }, [employee]);
 
- 
   const onSubmit = async (e) => {
     e.preventDefault();
-    
+
     setIsLoading(true);
 
-    let url; 
+    let url;
 
-    if(selectedFile) {
+    if (selectedFile) {
       const fileParts = selectedFile.name.split(".");
       const fileName = fileParts[0];
       const fileType = fileParts[1];
-      const response = await IMAGE_UPLOAD(fileName, fileType)
+      const response = await IMAGE_UPLOAD(fileName, fileType);
 
       const returnData = response.data.data.returnData;
       const signedRequest = returnData.signedRequest;
-       url = returnData.url;
+      url = returnData.url;
 
       const options = {
         headers: {
@@ -91,9 +90,8 @@ export default function Form() {
           "x-amz-acl": "public-read",
         },
       };
-  
+
       await axios.put(signedRequest, selectedFile, options);
-  
     }
 
     if (!param.id) {
@@ -135,7 +133,6 @@ export default function Form() {
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
-
 
   return (
     <Container component="main" maxWidth="xs">
@@ -183,8 +180,27 @@ export default function Form() {
               </Grid>
               <Grid item xs={12} sm={12}>
                 {imageSrc && (
-                  <img alt="Employee" height="300px" src={imageSrc} />
+                  <>
+                    <Typography variant="caption" component="h6">
+                      Selected Photo - {selectedFile.name}
+                    </Typography>
+                    <img alt="Employee" height="300px" src={imageSrc} />
+                  </>
                 )}
+                <Grid item xs={12} sm={12}>
+                  {formValues.imageUrl && !imageSrc ? (
+                    <>
+                      <Typography variant="subtitle1" component="h6">
+                        Current Employee's Photo
+                      </Typography>
+                      <img
+                        alt="Employee"
+                        height="300px"
+                        src={formValues.imageUrl}
+                      />
+                    </>
+                  ) : null}
+                </Grid>
               </Grid>
               <Grid item xs={12} sm={5}>
                 <TextField
