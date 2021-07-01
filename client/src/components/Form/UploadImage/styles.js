@@ -9,6 +9,13 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
+  uploadImage: {
+    background: theme.palette.warning.main, 
+    color: 'white', 
+    '&:hover': {
+      background: 'orange'
+    }
+  }
 }));
 
 export default useStyles;

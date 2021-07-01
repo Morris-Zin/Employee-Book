@@ -28,7 +28,7 @@ function UploadImage({setImageSrc, setSelectedFile}) {
         onChange={handleFileChange}
       />
       <label htmlFor="contained-button-file">
-        <Button variant="contained" color="primary" component="span">
+        <Button variant="contained" className={classes.uploadImage} color="warning" component="span">
           Upload Image
         </Button>
       </label>
@@ -41,7 +41,7 @@ function UploadImage({setImageSrc, setSelectedFile}) {
       />
       <label htmlFor="icon-button-file">
         <IconButton
-          color="primary"
+        className={classes.uploadImage}
           aria-label="upload picture"
           component="span"
         >
