@@ -4,17 +4,17 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import useStyles from "./styles";
 
-function UploadImage({setImageSrc, setSelectedFile}) {
+function UploadImage({ setImageSrc, setSelectedFile }) {
   const classes = useStyles();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    const fileReader = new FileReader(); 
+    const fileReader = new FileReader();
     fileReader.onloadend = () => {
-      setImageSrc(fileReader.result)
-    }
-    fileReader.readAsDataURL(e.target.files[0]); 
-    setSelectedFile(file); 
+      setImageSrc(fileReader.result);
+    };
+    fileReader.readAsDataURL(e.target.files[0]);
+    setSelectedFile(file);
   };
 
   return (
@@ -28,7 +28,11 @@ function UploadImage({setImageSrc, setSelectedFile}) {
         onChange={handleFileChange}
       />
       <label htmlFor="contained-button-file">
-        <Button variant="contained" className={classes.uploadImage} color="warning" component="span">
+        <Button
+          variant="contained"
+          className={classes.uploadImage}
+          component="span"
+        >
           Upload Image
         </Button>
       </label>
@@ -41,7 +45,7 @@ function UploadImage({setImageSrc, setSelectedFile}) {
       />
       <label htmlFor="icon-button-file">
         <IconButton
-        className={classes.uploadImage}
+          className={classes.uploadImage}
           aria-label="upload picture"
           component="span"
         >
