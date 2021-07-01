@@ -71,21 +71,21 @@ const Employee = ({
           />
           <CardContent>
             <Listitem
-              key={Math.random()}
+              key={1}
               Icon={PhoneIcon}
               primaryText="Phone Number"
               secondaryText={phoneNumber}
               className={classes.listItemText}
             />
             <Listitem
-              key={Math.random()}
+              key={2}
               Icon={PaymentIcon}
               primaryText="Salary"
               secondaryText={salary}
               className={`${classes.listItemText}`}
             />
             <Listitem
-              key={Math.random()}
+              key={3}
               Icon={WorkIcon}
               primaryText="Date Started Working"
               secondaryText={moment(startDate).format("YYYY MM DD")}

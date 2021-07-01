@@ -114,9 +114,7 @@ export default function Form() {
       const returnData = response.data.data.returnData;
       const signedRequest = returnData.signedRequest;
        url = returnData.url;
-      console.log(signedRequest, url, "from client");
-  
-      console.log("This is imageUrl from client side in image uploading", url);
+
       const options = {
         headers: {
           "Content-Type": fileType,
@@ -128,7 +126,6 @@ export default function Form() {
   
     }
 
-    console.log("File uploaded successfully");
     if (!param.id) {
       dispatch(
         createEmployee(
@@ -143,7 +140,6 @@ export default function Form() {
         )
       );
     }
-    console.log("param id", param.id);
     if (param.id) {
       dispatch(
         editEmployee(
