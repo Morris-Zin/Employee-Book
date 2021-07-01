@@ -28,3 +28,5 @@ export const DELETE_POST = (id) => API.delete(`/deleteEmployee/${id}`);
 
 export const SIGNUP_USER = (userData) => API.post("/signup", { userData });
 export const LOGIN_USER = (userData) => API.post("/login", { userData });
+export const IMAGE_UPLOAD = (fileName, fileType) =>
+  API.post("/uploadEmployeeImages", { fileName, fileType });

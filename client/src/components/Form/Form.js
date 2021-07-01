@@ -14,6 +14,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { createEmployee, editEmployee } from "../../actions/employees";
 import UploadImage from "./UploadImage/UploadImage";
 import axios from "axios";
+import { IMAGE_UPLOAD } from "../../api";
 
 const currencies = [
   {
@@ -66,6 +67,7 @@ export default function Form() {
     }
   }, [employee]);
 
+ 
   const onSubmit = async (e) => {
     e.preventDefault();
     
@@ -77,13 +79,8 @@ export default function Form() {
       const fileParts = selectedFile.name.split(".");
       const fileName = fileParts[0];
       const fileType = fileParts[1];
-      const response = await axios.post(
-        "http://localhost:8000/api/uploadEmployeeImages",
-        {
-          fileName,
-          fileType,
-        }
-      );
+      const response = await IMAGE_UPLOAD(fileName, fileType)
+
       const returnData = response.data.data.returnData;
       const signedRequest = returnData.signedRequest;
        url = returnData.url;
