@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import PostAddIcon from "@material-ui/icons/PostAdd";
 import useStyles from "./styles";
-import CopyRight from "../utils/CopyRight";
 import {
-  Avatar,
   Button,
   CssBaseline,
   TextField,
@@ -11,7 +8,6 @@ import {
   Typography,
   Container,
   MenuItem,
-  CircularProgress,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";

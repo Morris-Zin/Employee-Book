@@ -34,6 +34,11 @@ export const useStyles = makeStyles((theme) => ({
     link: {
       textDecoration: 'none', 
       color: 'black'
+    },
+    avatarImage: {
+      width: '100%', 
+      height: '100%', 
+      objectFit: 'cover'
     }
   }));
   

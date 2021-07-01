@@ -1,25 +1,21 @@
 import {
-  Button,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
   CssBaseline,
-  CardHeader,
+  IconButton,
+  Tooltip,
+  Typography,
 } from "@material-ui/core";
 import React from "react";
-import Listitem from "./ListItem/Listitem.js";
 import useStyles from "./styles";
-import PhoneIcon from "@material-ui/icons/Phone";
-import PaymentIcon from "@material-ui/icons/Payment";
-import WorkIcon from "@material-ui/icons/Work";
-import moment from "moment";
 import { Link, useHistory } from "react-router-dom";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import IconButton from "@material-ui/core/IconButton";
 import { useDispatch } from "react-redux";
 import { deleteEmployee } from "../../../actions/employees.js";
+import EditIcon from "@material-ui/icons/Edit";
 
 const DEFAULT_IMAGE =
   "https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png";
@@ -50,19 +46,6 @@ const Employee = ({
   return (
     <CssBaseline>
       <Card className={`${classes.root}`}>
-        <CardHeader
-          className={classes.header}
-          action={
-            <IconButton aria-label="settings" onClick={deleteThePost}>
-              <DeleteOutlineIcon className={classes.deleteIcon} />
-            </IconButton>
-          }
-          title={name}
-          subheader={moment(addedDate).fromNow()}
-          titleTypographyProps={{ variant: "h6" }}
-          subheaderTypographyProps={{ variant: "caption" }}
-        />
-
         <CardActionArea onClick={handleClick}>
           <CardMedia
             className={classes.media}
@@ -70,7 +53,21 @@ const Employee = ({
             title={name}
           />
           <CardContent>
-            <Listitem
+            <Typography
+              className={"MuiTypography--heading"}
+              vriant={"h6"}
+              gutterBottom
+            >
+              {name}
+            </Typography>
+            <Typography
+              className={"MuiTypography--subheading"}
+              variant={"caption"}
+            >
+              {name} joined Khit Mee on {startDate}.
+              Please click to view more about {name}.
+            </Typography>
+            {/* <Listitem
               key={1}
               Icon={PhoneIcon}
               primaryText="Phone Number"
@@ -90,29 +87,24 @@ const Employee = ({
               primaryText="Date Started Working"
               secondaryText={moment(startDate).format("YYYY MM DD")}
               className={classes.listItemText}
-            />
+            /> */}
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button
-            className={classes.exploreMore}
-            size="small"
-            variant="contained"
-            color="primary"
-            onClick={handleClick}
-          >
-            Explore more
-          </Button>
-          <Button
-            className={classes.editButton}
-            variant="outlined"
-            size="small"
-            color="primary"
-            component={Link}
-            to={`/editEmployee/${id}/edit`}
-          >
-            Edit the employee
-          </Button>
+          <Tooltip title="Delete the post?">
+            <IconButton onClick={deleteThePost} className={classes.deleteIcon}>
+              <DeleteOutlineIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Edit the post?">
+            <IconButton
+              component={Link}
+              to={`/editEmployee/${id}/edit`}
+              className={classes.editIcon}
+            >
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
         </CardActions>
       </Card>
     </CssBaseline>

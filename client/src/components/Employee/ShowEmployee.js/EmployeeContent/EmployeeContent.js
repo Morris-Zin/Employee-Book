@@ -25,7 +25,6 @@ import calculateWhenToPay from "../../../utils/calculateWhenToPay";
 const DEFAULT_IMAGE =
   "https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png";
 
-
 export default function EmployeeContent({ employee }) {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -39,7 +38,11 @@ export default function EmployeeContent({ employee }) {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {employee.name[0]}
+            {employee.imageUrl ? (
+              <img src={employee.imageUrl} alt={employee.name} className={classes.avatarImage}/ >
+            ) : (
+              employee.name[0]
+            )}
           </Avatar>
         }
         action={
@@ -67,10 +70,15 @@ export default function EmployeeContent({ employee }) {
           You are paying {employee.name} in
           <span className={classes.focus}>
             {" "}
-            {calculateWhenToPay(employee.startDate)} days{" "}
+            {calculateWhenToPay(employee.startDate)} days.{" "}
           </span>
-          .The employee phone number is {""}
-          <span className={classes.focus}>{""}{'+'}{employee.phoneNumber}</span> {""}
+          The employee phone number is {""}
+          <span className={classes.focus}>
+            {""}
+            {"+"}
+            {employee.phoneNumber}
+          </span>{" "}
+          {""}
           {employee.address
             ? `and the employee live in ${employee.address}.`
             : null}
@@ -94,7 +102,7 @@ export default function EmployeeContent({ employee }) {
           </IconButton>
         </Tooltip>
         <Tooltip title="Back to home page" className={classes.marginLeft}>
-          <IconButton aria-label="Back" component={Link} to="/">
+          <IconButton aria-label="Back" component={Link} to="/dashboard">
             <KeyboardBackspaceIcon />
           </IconButton>
         </Tooltip>

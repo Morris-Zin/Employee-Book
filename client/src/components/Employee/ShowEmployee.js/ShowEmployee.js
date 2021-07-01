@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
 import EmployeeContent from "./EmployeeContent/EmployeeContent";
-import {Grid } from '@material-ui/core'
 
 const ShowEmployee = ({ currentId }) => {
   const classes = useStyles();

@@ -72,7 +72,6 @@ function AuthFrom() {
                 label="User Name"
                 name="name"
                 autoFocus
-                required
                 onChange={handleChange}
                 value={formValues.name}
               />
@@ -88,7 +87,6 @@ function AuthFrom() {
               name="email"
               autoComplete="email"
               autoFocus
-              required
               value={formValues.email}
               onChange={handleChange}
 
@@ -103,7 +101,6 @@ function AuthFrom() {
               type="password"
               id="password"
               autoComplete="current-password"
-              required
               value={formValues.password}
               onChange={handleChange}
 

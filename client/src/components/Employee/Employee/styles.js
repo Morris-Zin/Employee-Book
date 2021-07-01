@@ -2,10 +2,11 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 320,
   },
   media: {
-    height: 140,
+    height: 200,
+    objectFit: 'cover', 
   },
   buttonColor: {
     color: theme.palette.info.light
@@ -13,18 +14,16 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(0,1,0)
   }, 
-  editButton: {
-    textDecoration: 'none', 
-    '&:focus': {
-      background: theme.palette.info.main, 
-      color: 'white'
+  editIcon: {
+    color: theme.palette.warning.contrastText,
+    '&:hover': {
+      color: 'orange'
     }
   }, 
-  exploreMore: {
-    
-    background:theme.palette.info.main , 
+  deleteIcon: {
+    color: theme.palette.getContrastText(theme.palette.warning.main), 
     '&:hover': {
-      background: theme.palette.primary.light
+      color: theme.palette.error.main
     }
   }, 
   header: {
@@ -34,10 +33,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize:'0.7rem',//Insert your required size
     background: 'red'
   },
-  deleteIcon: {
-    color: theme.palette.error.main
+  divider: {
+      margin: `${theme.spacing.y * 2}px 0`
   }
-
 }));
 
 export default useStyles;

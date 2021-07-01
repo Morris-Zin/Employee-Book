@@ -104,12 +104,13 @@ const editEmployee = async (req, res) => {
         response: "You aren't allow to edit if you are not logged in",
       });
     }
-    const oldProfilePic = foundEmployee.imageUrl; 
-    await deleteS3Image(oldProfilePic)
-
     const employee = req.body.postData;
-
-    console.log("showing employee update image in server site", employee.imageUrl)
+    const oldProfilePic = foundEmployee.imageUrl; 
+    if(!employee.imageUrl) {
+      employee.imageUrl = foundEmployee.imageUrl
+    } else {
+      await deleteS3Image(oldProfilePic)
+    }
     
     const updatedEmployee = await Employee.findByIdAndUpdate(id, employee, {
       new: true,
