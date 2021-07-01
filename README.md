@@ -5,3 +5,5 @@ Tired of managing the employees' data in your book manually. Don't worry, I got 
 #You can view the app in following url.
 
  https://employee-book.netlify.app/
+test account - testaccount@gmail.com
+password - test123
