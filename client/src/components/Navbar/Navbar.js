@@ -41,14 +41,6 @@ const Navbar = () => {
   return (
     <AppBar position="static" className={classes.navBar}>
       <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton>
         <Typography
           component={Link}
           to={`${user ? "/dashboard" : "/"}`}
@@ -58,7 +50,7 @@ const Navbar = () => {
           Employee-book
         </Typography>
         {user && (
-          <Button component={Link} to="/addEmployee" color="inherit">
+          <Button component={Link} to="/addEmployee" color="inherit" className={classes.button}>
             {" "}
             New Employee
           </Button>

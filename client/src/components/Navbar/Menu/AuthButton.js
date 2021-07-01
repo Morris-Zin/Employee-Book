@@ -35,7 +35,7 @@ const StyledMenu = withStyles({
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    backgroundColor: theme.palette.info.light,
+    backgroundColor: theme.palette.warning.main,
   },
 }));
 
@@ -59,8 +59,6 @@ export default function AuthButton({user}) {
       <Button
         aria-controls="customized-menu"
         aria-haspopup="true"
-        variant="contained"
-        color="primary"
         onClick={handleClick}
       >
         <Avatar className={classes.avatar}>
