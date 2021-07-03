@@ -66,7 +66,7 @@ export default function EmployeeContent({ employee }) {
           <span className={classes.focus}>Khit Mee</span> on{" "}
           <span>{moment(employee.startDate).format("MMM Do YYYY")}</span> and
           the employee gain a salary of{" "}
-          <span className={classes.focus}> {employee.salary} per month</span>.
+          <span className={classes.focus}> {employee.salary.amount} {employee.salary.currency} per month</span>.
           You are paying {employee.name} in
           <span className={classes.focus}>
             {" "}

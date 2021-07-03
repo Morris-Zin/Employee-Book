@@ -45,7 +45,7 @@ const Employee = ({
 
   return (
     <CssBaseline>
-      <Card className={`${classes.root}`}>
+      <Card className={`${classes.root}`} elevation={2}>
         <CardActionArea onClick={handleClick}>
           <CardMedia
             className={classes.media}

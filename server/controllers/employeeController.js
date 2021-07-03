@@ -17,13 +17,49 @@ const getEmployees = async (req, res) => {
         salary: 1,
         address: 1,
         creator: 1,
-        imageUrl: 1, 
+        imageUrl: 1,
       }
     );
     if (!employees.length) return res.json({ response: [] });
     res.json({ response: employees });
   } catch (e) {
     console.log(e);
+  }
+};
+
+const queryEmployees = async (req, res) => {
+  console.log("i run");
+
+  try {
+    const { searchByName, salaryTags } = req.query;
+    console.log(!searchByName);
+    console.log("Search By Name", searchByName, "salaryTags", salaryTags);
+
+    if (searchByName || salaryTags.length) {
+      console.log("I run inside", salaryTags.split(","));
+      let name;
+
+      console.log(salaryTags.split(",").map((sal) => +sal));
+
+      !searchByName ? (name = "") : (name = new RegExp(searchByName, "i"));
+
+      const employees = await Employee.find({
+        $or: [
+          {
+            "salary.amount": {
+              $in: salaryTags.split(",").map((amount) => +amount),
+            },
+          },
+          { name },
+        ],
+      });
+      res.json({ data: employees });
+    }
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .json({ message: "There was an error in quering employees" });
   }
 };
 
@@ -60,7 +96,11 @@ const addEmployee = async (req, res) => {
     const { userId } = req;
     if (!postData)
       return res.json({ error: "You are not allowed to create an empty post" });
-    const employee = await new Employee({ ...postData, creator: userId });
+
+    const employee = await new Employee({
+      ...postData,
+      creator: userId,
+    });
     await employee.save();
     const {
       active,
@@ -71,7 +111,7 @@ const addEmployee = async (req, res) => {
       salary,
       _id,
       creator,
-      imageUrl
+      imageUrl,
     } = employee;
     res.json({
       response: {
@@ -83,7 +123,7 @@ const addEmployee = async (req, res) => {
         salary,
         _id,
         creator,
-        imageUrl
+        imageUrl,
       },
     });
   } catch (error) {
@@ -104,14 +144,16 @@ const editEmployee = async (req, res) => {
         response: "You aren't allow to edit if you are not logged in",
       });
     }
+
     const employee = req.body.postData;
-    const oldProfilePic = foundEmployee.imageUrl; 
-    if(!employee.imageUrl) {
-      employee.imageUrl = foundEmployee.imageUrl
+    const oldProfilePic = foundEmployee.imageUrl;
+
+    if (!employee.imageUrl) {
+      employee.imageUrl = foundEmployee.imageUrl;
     } else {
-      await deleteS3Image(oldProfilePic)
+      await deleteS3Image(oldProfilePic);
     }
-    
+
     const updatedEmployee = await Employee.findByIdAndUpdate(id, employee, {
       new: true,
     });
@@ -130,7 +172,7 @@ const deleteEmployee = async (req, res) => {
     return res.json({
       response: "You aren't allow to edit if you are not logged in",
     });
-  deleteS3Image(employee.imageUrl)
+  deleteS3Image(employee.imageUrl);
   await Employee.findByIdAndDelete(id);
   res.send("Successfully deleted the post");
   res.send();
@@ -141,4 +183,5 @@ module.exports = {
   editEmployee,
   deleteEmployee,
   showEmployee,
+  queryEmployees,
 };

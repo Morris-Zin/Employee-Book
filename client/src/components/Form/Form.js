@@ -36,7 +36,7 @@ const INITIAL_VALUES = {
   active: false,
   startDate: "",
   addedDate: "",
-  salary: "",
+  amount: "",
   address: "",
   phoneNumber: "",
   currency: "MMK",
@@ -60,8 +60,9 @@ export default function Form() {
 
   useEffect(() => {
     if (employee) {
-      const salary = employee.salary.split(" ")[0];
-      setFormValues({ ...INITIAL_VALUES, ...employee, salary });
+      const amount = employee.salary.amount;
+      const currency = employee.salary.currency;
+      setFormValues({ ...INITIAL_VALUES, ...employee, amount, currency });
     } else {
       setFormValues(INITIAL_VALUES);
     }
@@ -99,7 +100,10 @@ export default function Form() {
         createEmployee(
           {
             ...formValues,
-            salary: `${formValues.salary} ${formValues.currency}`,
+            salary: {
+              amount: formValues.amount,
+              currency: formValues.currency,
+            },
             active: true,
             addedDate: new Date().toISOString(),
             imageUrl: url || "",
@@ -113,7 +117,10 @@ export default function Form() {
         editEmployee(
           {
             ...formValues,
-            salary: `${formValues.salary} ${formValues.currency}`,
+            salary: {
+              amount: formValues.amount,
+              currency: formValues.currency,
+            },
             active: true,
             imageUrl: url || "",
           },
@@ -224,12 +231,12 @@ export default function Form() {
                   variant="outlined"
                   required
                   fullWidth
-                  id="salary"
-                  label="Salary"
-                  name="salary"
+                  id="amount"
+                  label="Salary Amount"
+                  name="amount"
                   type="number"
                   onChange={handleChange}
-                  value={formValues.salary}
+                  value={formValues.amount}
                 />
               </Grid>
 

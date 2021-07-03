@@ -36,19 +36,20 @@ const Empoyees = ({ setCurrentId }) => {
   const handlePress = (e) => {
     console.log(e.code === "Enter");
     if (e.code === "Enter") {
-      console.handleSearch();
+      handleSearch();
     }
   };
 
   const handleSearch = () => {
-    dispatch(queryAndGetEmployees({ searchQuery, salaryTags }));
-    if(salaryTags.length || searchQuery) 
-    return  history.push(
-      `/dashboard/search?searchByName=${searchQuery || 'none'}&salaryTags=${salaryTags.join(
-        ","
-      )}`
-    );
-    history.push('/dashboard')
+    if (salaryTags.length || searchQuery.trim()) {
+      dispatch(queryAndGetEmployees({ searchQuery, salaryTags }));
+      return history.push(
+        `/dashboard/search?searchByName=${
+          searchQuery || "none"
+        }&salaryTags=${salaryTags.join(",")}`
+      );
+    }
+    history.push("/dashboard");
   };
 
   return (

@@ -5,12 +5,14 @@ const {
   editEmployee,
   showEmployee,
   deleteEmployee,
+  queryEmployees
 } = require("../controllers/employeeController");
 const ensureAuth = require("../middleware/auth");
 const { getSignedRequest, EMPLOYEE_BUCKET } = require("../services/aws-services");
 const router = express.Router();
 
 router.get("/getEmployees", ensureAuth, getEmployees);
+router.get("/getEmployees/search", ensureAuth, queryEmployees)
 
 //Upload employee images
 router.post("/uploadEmployeeImages", ensureAuth, async (req, res) => {

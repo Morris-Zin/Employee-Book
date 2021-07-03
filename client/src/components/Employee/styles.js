@@ -33,9 +33,11 @@ export default makeStyles((theme) => ({
     flexDirection: 'column', 
     alignItems: "center",
     justifyContent: "center",
+    height: '100%'
   },
   chipInput: {
     margin: '20px 0px', 
-    height: '60px'
+    minHeight: '60px',
+    maxHeight: 'auto'
   }
 }));

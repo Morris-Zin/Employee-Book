@@ -19,7 +19,10 @@ const employeeSchema = new Schema({
     startDate: {
         type: String, 
     },
-    salary: String, 
+    salary: {
+        amount: Number, 
+        currency: String,
+    } ,
     address: String, 
     phoneNumber: Number, 
     addedDate: {

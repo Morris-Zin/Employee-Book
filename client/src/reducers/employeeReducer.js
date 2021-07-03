@@ -1,4 +1,4 @@
-import { CREATE, DELETE, EDIT, GET } from "../CONSTANTS/actionTypes";
+import { CREATE, DELETE, EDIT, GET, QUERY } from "../CONSTANTS/actionTypes";
 
 // const initialState = [{
 //     name: '',
