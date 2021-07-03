@@ -5,7 +5,6 @@ require("dotenv").config();
 const awsSecretKeyId = process.env.awsAccessKeyId;
 const awsSecretAccessKey = process.env.awsSecretAccessKey;
 
-console.log("aws credentials", awsSecretAccessKey, awsSecretAccessKey);
 
 // Aws bucker name
 const EMPLOYEE_BUCKET = "employee-book-images";
@@ -41,7 +40,8 @@ const getSignedRequest = async (req, res, bucketName) => {
       console.log(err);
       res.json({ error: err });
     }
-    //if is being successfull, we get the url to view or images tada
+    //if is being successfull, we get the url to upload our image and the url becomes the image url that we 
+    // can view images
     const returnData = {
       signedRequest: data,
       url: `https://${bucketName}.s3.amazonaws.com/${fileKey}`,

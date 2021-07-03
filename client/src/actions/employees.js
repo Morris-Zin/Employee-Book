@@ -1,4 +1,4 @@
-import { CREATE_POST, DELETE_POST, EDIT_POST, FETCH_POSTS } from "../api";
+import { CREATE_POST, DELETE_POST, EDIT_POST, FETCH_POSTS, QUERY_POSTS } from "../api";
 import { CREATE, DELETE, EDIT, GET } from "../CONSTANTS/actionTypes";
 
 export const getEmployees = () => async (dispatch) => {
@@ -9,6 +9,15 @@ export const getEmployees = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const queryAndGetEmployees = (searchByName, salaryTags) => async (dispatch) => {
+  try {
+    const {data} = await QUERY_POSTS(searchByName, salaryTags); 
+    console.log(data)
+  } catch (error) {
+    console.log(error); 
+  }
+}
 
 export const createEmployee = (postData, history) => async (dispatch) => {
   try {

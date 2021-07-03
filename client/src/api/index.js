@@ -21,6 +21,10 @@ API.interceptors.request.use((req) => {
 });
 
 export const FETCH_POSTS = () => API.get("/getEmployees");
+
+export const QUERY_POSTS = (searchByName, salaryTags) => API.delete(`/getEmployees/search?searchByName=${searchByName}&salaryTags=${salaryTags.join(',')}`);
+
+
 export const CREATE_POST = (postData) => API.post("/addEmployee", { postData });
 export const EDIT_POST = (postData, id) =>
   API.patch(`/editEmployee/${id}`, { postData });
