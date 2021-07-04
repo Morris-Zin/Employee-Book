@@ -13,6 +13,8 @@ const employeeReducer = (state = [], action) => {
   switch (action.type) {
     case GET:
       return action.payload;
+    case QUERY: 
+      return  action.payload
     case CREATE:
       if (typeof stae !== "string") {
         return [...state, action.payload];

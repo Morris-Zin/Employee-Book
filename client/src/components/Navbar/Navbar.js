@@ -14,6 +14,7 @@ import decode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import { logOut } from "../../actions/users";
 import { useDispatch } from "react-redux";
+import { getEmployees } from "../../actions/employees";
 
 const Navbar = () => {
   const classes = useStyles();
@@ -42,6 +43,7 @@ const Navbar = () => {
     <AppBar position="static" className={classes.navBar}>
       <Toolbar>
         <Typography
+          onClick={() => dispatch(getEmployees())}
           component={Link}
           to={`${user ? "/dashboard" : "/"}`}
           variant="h6"

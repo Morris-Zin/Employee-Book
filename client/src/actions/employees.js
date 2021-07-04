@@ -5,7 +5,7 @@ import {
   FETCH_POSTS,
   QUERY_POSTS,
 } from "../api";
-import { CREATE, DELETE, EDIT, GET } from "../CONSTANTS/actionTypes";
+import { CREATE, DELETE, EDIT, GET, QUERY } from "../CONSTANTS/actionTypes";
 
 export const getEmployees = () => async (dispatch) => {
   try {
@@ -20,7 +20,11 @@ export const queryAndGetEmployees =
   ({ searchQuery, salaryTags }) =>
   async (dispatch) => {
     try {
-      const { data } = await QUERY_POSTS(searchQuery, salaryTags);
+      const {
+        data: { data },
+      } = await QUERY_POSTS(searchQuery, salaryTags);
+      console.log(data)
+    dispatch({type: QUERY, payload: data})
       console.log(data);
     } catch (error) {
       console.log(error);

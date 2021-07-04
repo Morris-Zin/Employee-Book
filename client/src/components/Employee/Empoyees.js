@@ -49,7 +49,7 @@ const Empoyees = ({ setCurrentId }) => {
         }&salaryTags=${salaryTags.join(",")}`
       );
     }
-    history.push("/dashboard");
+    history.push("/dashboard/search");
   };
 
   return (
