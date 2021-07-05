@@ -38,24 +38,33 @@ const queryEmployees = async (req, res) => {
   try {
     const { searchByName, salaryTags } = req.query;
 
-    if (searchByName || salaryTags.length) {
-      let name;
+    const regex = /^[0-9]+$/;
+    const isAlphabet = salaryTags.match(regex);
+    console.log(isAlphabet, isAlphabet !== null);
 
-      !searchByName ? (name = "") : (name = new RegExp(searchByName, "i"));
+    if (isAlphabet !== null) {
+      if (searchByName || salaryTags.length) {
+        let name;
 
-      const employees = await Employee.find({
-        $or: [
-          {
-            "salary.amount": {
-              $in: salaryTags.split(",").map((amount) => +amount),
+        !searchByName ? (name = "") : (name = new RegExp(searchByName, "i"));
+
+        const employees = await Employee.find({
+          $or: [
+            {
+              "salary.amount": {
+                $in: salaryTags.split(",").map((amount) => +amount),
+              },
             },
-          },
-          { name },
-        ],
-      });
-      res.json({ data: employees });
+            { name },
+          ],
+        });
+        res.json({ data: employees });
+      }
+    } else {
+      res.json({ data: [] });
     }
   } catch (error) {
+    console.log(error);
     res
       .status(400)
       .json({ message: "There was an error in quering employees" });
