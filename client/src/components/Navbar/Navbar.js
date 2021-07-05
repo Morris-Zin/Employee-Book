@@ -52,7 +52,12 @@ const Navbar = () => {
           Employee-book
         </Typography>
         {user && (
-          <Button component={Link} to="/addEmployee" color="inherit" className={classes.button}>
+          <Button
+            component={Link}
+            to="/addEmployee"
+            color="inherit"
+            className={classes.button}
+          >
             {" "}
             New Employee
           </Button>

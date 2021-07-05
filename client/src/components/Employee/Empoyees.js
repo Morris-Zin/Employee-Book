@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Grid,
-  Card,
-  CardHeader,
   Typography,
   Paper,
   Divider,
   Button,
   TextField,
-  CardActions,
+  Box,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles";
 import Employee from "./Employee/Employee";
 import ChipInput from "material-ui-chip-input";
-import { getEmployees, queryAndGetEmployees } from "../../actions/employees";
+import { queryAndGetEmployees } from "../../actions/employees";
 import { useHistory, useLocation } from "react-router-dom";
 import Paginate from "../Pagination/Paginate";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -28,12 +27,11 @@ const Empoyees = ({ setCurrentId }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const classes = useStyles();
 
-  const employees = useSelector((state) => {
-    return state.employees.employees;
-  });
+  const user = JSON.parse(localStorage.getItem("profile"));
+
+  const { employees, isLoading } = useSelector((state) => state.employees);
 
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("profile"));
   const history = useHistory();
   const page = query.get("page");
   const searchByName = query.get("searchByName");
@@ -108,50 +106,45 @@ const Empoyees = ({ setCurrentId }) => {
       <Divider />
 
       <Grid alignItems="stretch" className={classes.mainContainer} container>
-        {user ? (
-          employees.length && typeof employees !== "string" ? (
-            employees.map((employee) => (
+        {!isLoading
+          ? employees.length && typeof employees !== "string"
+            ? employees.map((employee) => (
+                <Grid
+                  key={employee._id}
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  className={classes.cardMargin}
+                  item
+                >
+                  <Employee
+                    setCurrentId={setCurrentId}
+                    name={employee.name}
+                    startDate={employee.startDate}
+                    addedDate={employee.addedDate}
+                    phoneNumber={employee.phoneNumber}
+                    salary={employee.salary}
+                    imageUrl={employee.imageUrl}
+                    id={employee._id}
+                    key={employee._id}
+                  />
+                </Grid>
+              ))
+            : "There aren't any employee in your workshop right now 👀"
+          : Array.from(new Array(8)).map((item, index) => (
               <Grid
-                key={employee._id}
+                key={index}
                 xs={12}
                 sm={6}
                 md={3}
                 className={classes.cardMargin}
                 item
               >
-                <Employee
-                  setCurrentId={setCurrentId}
-                  name={employee.name}
-                  startDate={employee.startDate}
-                  addedDate={employee.addedDate}
-                  phoneNumber={employee.phoneNumber}
-                  salary={employee.salary}
-                  imageUrl={employee.imageUrl}
-                  id={employee._id}
-                  key={employee._id}
-                />
+                <Skeleton variant="text" />
+                <Skeleton variant="circle" width={40} height={40} />
+                <Skeleton variant="rect" width={210} height={118} />
               </Grid>
-            ))
-          ) : (
-            "There aren't any employee in your workshop right now 👀"
-          )
-        ) : (
-          <Card className={classes.card}>
-            <CardHeader
-              title="Please Sign into your workshop to create and see employees"
-              titleTypographyProps={{ variant: "h6" }}
-            />
-            <CardActions>
-              <Button
-                onClick={() => history.push("/auth")}
-                variant="outlined"
-                color="secondary"
-              >
-                Register Now
-              </Button>
-            </CardActions>
-          </Card>
-        )}
+            ))}
         {!searchByName && !salaryTags.length && <Paginate page={page || 1} />}
       </Grid>
     </>

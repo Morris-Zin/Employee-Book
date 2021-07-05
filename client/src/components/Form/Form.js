@@ -8,6 +8,8 @@ import {
   Typography,
   Container,
   MenuItem,
+  CircularProgress,
+  Backdrop,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
@@ -46,7 +48,7 @@ export default function Form() {
   const [formValues, setFormValues] = useState(INITIAL_VALUES);
   const [imageSrc, setImageSrc] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading } = useSelector((state) => state.employees);
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -70,9 +72,6 @@ export default function Form() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    setIsLoading(true);
-
     let url;
 
     if (selectedFile) {
@@ -146,7 +145,12 @@ export default function Form() {
       <CssBaseline />
       {isLoading ? (
         // <CircularProgress />
-        <h1>Please wait ...</h1>
+        <>
+        <Backdrop className={classes.backdrop} open={isLoading} >
+        <CircularProgress color="inherit" />
+        <Typography variant="subtitle1" className={classes.subTitle} component="h4">Please wait ...</Typography>
+      </Backdrop>
+      </>
       ) : (
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">

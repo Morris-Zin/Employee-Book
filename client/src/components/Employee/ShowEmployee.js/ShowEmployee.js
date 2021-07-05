@@ -15,7 +15,7 @@ const ShowEmployee = ({ currentId }) => {
   });
 
   return employee ? (
-      <EmployeeContent employee={employee} />
+    <EmployeeContent employee={employee} />
   ) : (
     <div className={classes.root}>
       <Typography variant="h6" component="h1" align="center">

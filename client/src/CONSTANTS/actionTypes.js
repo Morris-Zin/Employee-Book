@@ -6,6 +6,8 @@ const DELETE = "DELETE_POST";
 const SIGN_UP = "SIGN_UP";
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
+const LOADING_STARTED = "LOADING_STARTED";
+const LOADING_ENDED = "LOADING_ENDED";
 
 module.exports = {
   GET,
@@ -16,4 +18,6 @@ module.exports = {
   LOG_OUT,
   LOG_IN,
   QUERY,
+  LOADING_STARTED,
+  LOADING_ENDED,
 };

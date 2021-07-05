@@ -22,5 +22,12 @@ const useStyles = makeStyles((theme) => ({
       background: "#f00",
     },
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+  subTitle: {
+    marginLeft: '20px'
+  }
 }));
 export default useStyles;

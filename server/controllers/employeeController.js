@@ -24,7 +24,6 @@ const getEmployees = async (req, res) => {
 
     if (!employees.length) return res.json({ response: [] });
 
-
     res.json({
       response: employees,
       currentPage: +page,

@@ -1,16 +1,26 @@
-import { CREATE, DELETE, EDIT, GET, QUERY } from "../CONSTANTS/actionTypes";
+import {
+  CREATE,
+  DELETE,
+  EDIT,
+  LOADING_STARTED,
+  GET,
+  QUERY,
+  LOADING_ENDED,
+} from "../CONSTANTS/actionTypes";
 
-// const initialState = [{
-//     name: '',
-//     active: null,
-//     startDate: '',
-//     salary: '',
-//     address: '',
-//     phoneNumber: null
-// }];
+const INITIAL_STATE = {
+  employees: [],
+  isLoading: true,
+};
 
-const employeeReducer = (state = { employees: [] }, action) => {
+const employeeReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case LOADING_STARTED:
+      return { ...state, isLoading: true };
+
+    case LOADING_ENDED:
+      return { ...state, isLoading: false };
+
     case GET:
       return {
         employees: action.payload.response,
@@ -19,7 +29,7 @@ const employeeReducer = (state = { employees: [] }, action) => {
       };
     case QUERY:
       return { ...state, employees: action.payload };
-      
+
     case CREATE:
       if (typeof state.employees !== "string") {
         return { ...state, employees: [...state.employees, action.payload] };
