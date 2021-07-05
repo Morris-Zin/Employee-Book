@@ -37,12 +37,9 @@ const getEmployees = async (req, res) => {
 const queryEmployees = async (req, res) => {
   try {
     const { searchByName, salaryTags } = req.query;
-    console.log(!searchByName);
 
     if (searchByName || salaryTags.length) {
       let name;
-
-      console.log(salaryTags.split(",").map((sal) => +sal));
 
       !searchByName ? (name = "") : (name = new RegExp(searchByName, "i"));
 
@@ -59,7 +56,6 @@ const queryEmployees = async (req, res) => {
       res.json({ data: employees });
     }
   } catch (error) {
-    console.log(error);
     res
       .status(400)
       .json({ message: "There was an error in quering employees" });

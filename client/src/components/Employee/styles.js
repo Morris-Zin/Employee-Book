@@ -16,28 +16,11 @@ export default makeStyles((theme) => ({
     display: "grid",
     placeItems: "center",
     margin: "auto",
-  },
-  search: {
-    width: "50%",
-    height: "auto",
-    margin: "30px auto",
-  },
-  searchTitle: {
-    marginTop: "10px",
-  },
-  searchPortion: {
-    padding: "20px",
-    width: "50%",
-    margin: "10px auto",
-    display: "flex",
-    flexDirection: 'column', 
-    alignItems: "center",
-    justifyContent: "center",
-    height: '100%'
-  },
-  chipInput: {
-    margin: '20px 0px', 
-    minHeight: '60px',
-    maxHeight: 'auto'
+  }, 
+  searchButton: {
+    margin: '30px auto',
+    width: 'auto',
+    display: 'flex', 
+    alignItems: 'center'
   }
 }));

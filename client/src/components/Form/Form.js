@@ -128,7 +128,6 @@ export default function Form() {
         )
       );
     }
-    console.log("this is the final thing", url);
     // console.log({
     //   ...formValues,
     //   active: true,
