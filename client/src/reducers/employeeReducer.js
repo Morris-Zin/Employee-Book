@@ -9,24 +9,38 @@ import { CREATE, DELETE, EDIT, GET, QUERY } from "../CONSTANTS/actionTypes";
 //     phoneNumber: null
 // }];
 
-const employeeReducer = (state = [], action) => {
+const employeeReducer = (state = { employees: [] }, action) => {
   switch (action.type) {
     case GET:
-      return action.payload;
-    case QUERY: 
-      return  action.payload
+      return {
+        employees: action.payload.response,
+        currentPage: action.payload.currentPage,
+        totalPages: action.payload.totalPages,
+      };
+    case QUERY:
+      return { ...state, employees: action.payload };
+      
     case CREATE:
-      if (typeof stae !== "string") {
-        return [...state, action.payload];
+      if (typeof state.employees !== "string") {
+        return { ...state, employees: [...state.employees, action.payload] };
       } else break;
+
     case EDIT:
-      return state.map((employee) => {
-        return employee._id === action.payload._id ? action.payload : employee;
-      });
+      return {
+        ...state,
+        employees: state.employees.map((employee) => {
+          return employee._id === action.payload._id
+            ? action.payload
+            : employee;
+        }),
+      };
     case DELETE:
-      return state.filter((employee) => {
-        return employee._id !== action.id;
-      });
+      return {
+        ...state,
+        employees: state.employees.filter((employee) => {
+          return employee._id !== action.id;
+        }),
+      };
     default:
       return state;
   }

@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledMenuItem = withStyles((theme) => ({}))(MenuItem);
 
-export default function AuthButton({user}) {
+export default function AuthButton({ user }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
@@ -67,7 +67,7 @@ export default function AuthButton({user}) {
         </Avatar>
       </Button>
       <StyledMenu
-        id="customized-menu"  
+        id="customized-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
@@ -80,18 +80,14 @@ export default function AuthButton({user}) {
                 <SubdirectoryArrowRightIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText primary="Register" />
-            </StyledMenuItem>
-
+            </StyledMenuItem>,
           ]
         ) : (
-          <StyledMenuItem key={2}>
+          <StyledMenuItem key={2} onClick={() => dispatch(logOut(history))}>
             <ListItemIcon>
               <ExitToAppIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText
-              primary="Log Out"
-              onClick={() => dispatch(logOut(history))}
-            />
+            <ListItemText primary="Log Out" />
           </StyledMenuItem>
         )}
       </StyledMenu>

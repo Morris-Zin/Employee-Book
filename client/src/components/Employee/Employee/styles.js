@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 200,
     objectFit: 'cover', 
+    backgroundPosition: 'center'
   },
   buttonColor: {
     color: theme.palette.info.light

@@ -20,10 +20,14 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const FETCH_POSTS = () => API.get("/getEmployees");
+export const FETCH_POSTS = (page) => API.get(`/getEmployees?page=${page}`);
 
-export const QUERY_POSTS = (searchByName, salaryTags) =>(console.log('hi',searchByName), API.get(`/getEmployees/search?searchByName=${searchByName}&salaryTags=${salaryTags.join(',')}`));
-
+export const QUERY_POSTS = (searchByName, salaryTags) =>
+  API.get(
+    `/getEmployees/search?searchByName=${searchByName}&salaryTags=${salaryTags.join(
+      ","
+    )}`
+  );
 
 export const CREATE_POST = (postData) => API.post("/addEmployee", { postData });
 export const EDIT_POST = (postData, id) =>

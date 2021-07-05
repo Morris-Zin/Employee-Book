@@ -7,14 +7,17 @@ import {
 } from "../api";
 import { CREATE, DELETE, EDIT, GET, QUERY } from "../CONSTANTS/actionTypes";
 
-export const getEmployees = () => async (dispatch) => {
-  try {
-    const { data } = await FETCH_POSTS();
-    dispatch({ type: GET, payload: data.response });
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const getEmployees =
+  (page = 1) =>
+  async (dispatch) => {
+    try {
+      const { data } = await FETCH_POSTS(page);
+
+      dispatch({ type: GET, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const queryAndGetEmployees =
   ({ searchQuery, salaryTags }) =>
@@ -23,8 +26,8 @@ export const queryAndGetEmployees =
       const {
         data: { data },
       } = await QUERY_POSTS(searchQuery, salaryTags);
-      console.log(data)
-    dispatch({type: QUERY, payload: data})
+      console.log('This is the returning dat from queryAndGetPost', data);
+      dispatch({ type: QUERY, payload: data });
       console.log(data);
     } catch (error) {
       console.log(error);

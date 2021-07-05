@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
     navBar: {
-      background: theme.palette.warning.main,
+      background: 'white',
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     title: {
       flexGrow: 1,
       textDecoration: 'none',
-      color: 'white', 
+      color: 'black', 
       fontSize: 22, 
       [theme.breakpoints.down('sm')]: {
         fontSize: 15
@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down('sm')]: {
         fontSize: 13
       },
+      color: 'black',   
     }
   }));
 

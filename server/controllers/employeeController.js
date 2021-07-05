@@ -5,38 +5,42 @@ const { deleteS3Image } = require("../services/aws-services");
 const getEmployees = async (req, res) => {
   try {
     const { userId } = req;
+    const { page } = req.query;
+
     if (!userId)
       return res.json({ response: "You need to sign in to your workshop" });
-    const employees = await Employee.find(
-      { active: true, creator: userId },
-      {
-        name: 1,
-        phoneNumber: 1,
-        addedDate: 1,
-        startDate: 1,
-        salary: 1,
-        address: 1,
-        creator: 1,
-        imageUrl: 1,
-      }
-    );
+
+    const totalEmployees = await Employee.countDocuments({});
+
+    const LIMIT = 8;
+    const totalPages = Math.ceil(totalEmployees / LIMIT);
+
+    const startIndex = (Number(page) - 1) * LIMIT;
+
+    const employees = await Employee.find({ active: true, creator: userId })
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+
     if (!employees.length) return res.json({ response: [] });
-    res.json({ response: employees });
+
+
+    res.json({
+      response: employees,
+      currentPage: +page,
+      totalPages,
+    });
   } catch (e) {
     console.log(e);
   }
 };
 
 const queryEmployees = async (req, res) => {
-  console.log("i run");
-
   try {
     const { searchByName, salaryTags } = req.query;
     console.log(!searchByName);
-    console.log("Search By Name", searchByName, "salaryTags", salaryTags);
 
     if (searchByName || salaryTags.length) {
-      console.log("I run inside", salaryTags.split(","));
       let name;
 
       console.log(salaryTags.split(",").map((sal) => +sal));

@@ -53,8 +53,8 @@ export default function Form() {
   const param = useParams();
 
   const employee = useSelector((state) => {
-    return param && typeof state.employees !== "string"
-      ? state.employees.find((employee) => employee._id === param.id)
+    return param && typeof state.employees.employees !== "string"
+      ? state.employees.employees.find((employee) => employee._id === param.id)
       : null;
   });
 

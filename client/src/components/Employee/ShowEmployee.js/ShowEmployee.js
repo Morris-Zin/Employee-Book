@@ -10,7 +10,7 @@ const ShowEmployee = ({ currentId }) => {
 
   const employee = useSelector((state) => {
     return currentId
-      ? state.employees.find((employee) => employee._id === currentId)
+      ? state.employees.employees.find((employee) => employee._id === currentId)
       : null;
   });
 
