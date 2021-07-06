@@ -17,6 +17,7 @@ import { createEmployee, editEmployee } from "../../actions/employees";
 import UploadImage from "./UploadImage/UploadImage";
 import axios from "axios";
 import { IMAGE_UPLOAD } from "../../api";
+import { LOADING_STARTED } from "../../CONSTANTS/actionTypes";
 
 const currencies = [
   {
@@ -73,6 +74,7 @@ export default function Form() {
   const onSubmit = async (e) => {
     e.preventDefault();
     let url;
+    dispatch({type: LOADING_STARTED}); 
 
     if (selectedFile) {
       const fileParts = selectedFile.name.split(".");
@@ -248,6 +250,7 @@ export default function Form() {
                   variant="outlined"
                   required
                   fullWidth
+                  type="number"
                   name="phoneNumber"
                   label="Phone Number"
                   // type="number"

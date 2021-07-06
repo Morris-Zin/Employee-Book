@@ -36,32 +36,36 @@ const getEmployees = async (req, res) => {
 
 const queryEmployees = async (req, res) => {
   try {
-    const { searchByName, salaryTags } = req.query;
+    let { searchByName, salaryTags } = req.query;
 
     const regex = /^[0-9]+$/;
+
     const isAlphabet = salaryTags.match(regex);
-    console.log(isAlphabet, isAlphabet !== null);
 
-    if (isAlphabet !== null) {
-      if (searchByName || salaryTags.length) {
-        let name;
+    console.log(isAlphabet);
 
-        !searchByName ? (name = "") : (name = new RegExp(searchByName, "i"));
+    if (searchByName || salaryTags.length) {
+      let name;
 
-        const employees = await Employee.find({
-          $or: [
-            {
-              "salary.amount": {
-                $in: salaryTags.split(",").map((amount) => +amount),
-              },
-            },
-            { name },
-          ],
-        });
-        res.json({ data: employees });
+      !searchByName ? (name = "") : (name = new RegExp(searchByName, "i"));
+
+      if (!isAlphabet) {
+        const employees = await Employee.find({ name });
+        return res.json({ data: employees });
       }
-    } else {
-      res.json({ data: [] });
+
+      const employees = await Employee.find({
+        $or: [
+          {
+            "salary.amount": {
+              $in: salaryTags.split(",").map((amount) => +amount),
+            },
+          },
+          { name },
+        ],
+      });
+
+      res.json({ data: employees });
     }
   } catch (error) {
     console.log(error);
