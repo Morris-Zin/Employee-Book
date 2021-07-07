@@ -2,14 +2,18 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: '500px',
-      margin: 'auto',
-      marginTop: theme.spacing(3)
-  
+      maxWidth: '95%',
+      margin: '10px auto',
+      padding: '40px',
+      borderRadius: '10px',
+      marginTop: theme.spacing(3),      
     },
     media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
+      width: '100%', 
+      height: '500px',
+      maxHeight: '100%', 
+      borderRadius: '10px',
+      objectFit: 'cover',
       
     },
     expand: {
@@ -22,8 +26,10 @@ export const useStyles = makeStyles((theme) => ({
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-    avatar: {
-      backgroundColor: theme.palette.error.dark,
+    avatarContainer: {
+      display: 'flex', 
+      alignItems: 'center', 
+      textAlign: 'center', 
     },
     focus: {
         fontWeight: 'bold', 
@@ -37,9 +43,26 @@ export const useStyles = makeStyles((theme) => ({
       color: 'black'
     },
     avatarImage: {
-      width: '100%', 
-      height: '100%', 
-      objectFit: 'cover'
+      width: '30px', 
+      height: '30px', 
+      objectFit: 'cover', 
+      borderRadius: '50%',
+      margin: '0px 10px 5px 0px'
+    },
+    title: {
+      fontSize: '1.4rem',
+    },
+    section: {
+      marginTop: '20px'
+    }, 
+    aTag: {
+      textDecoration: 'none',
+      color: 'orange', 
+      fontWeight: 'bold'
+    },
+    divider: {
+      width: '90%', 
+      margin: '15px 0px'
     }
   }));
   

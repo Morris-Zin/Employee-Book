@@ -3,6 +3,7 @@ import { useStyles } from "./styles";
 import moment from "moment";
 import {
   Card,
+  Paper,
   CardHeader,
   CardMedia,
   CardContent,
@@ -11,6 +12,8 @@ import {
   Typography,
   IconButton,
   Tooltip,
+  Divider,
+  Grid,
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import PhoneIcon from "@material-ui/icons/Phone";
@@ -30,83 +33,76 @@ export default function EmployeeContent({ employee }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const calculateTimeDifference = () => {
+    return moment(employee.startDate)
+      .fromNow()
+      .split(" ")
+      .splice(0, 2)
+      .map((item, index) => (index === 1 ? ` ${item}` : item));
+  };
+
   const deleteThePost = () => {
     dispatch(deleteEmployee(employee._id, history));
   };
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {employee.imageUrl ? (
-              <img src={employee.imageUrl} alt={employee.name} className={classes.avatarImage}/ >
-            ) : (
-              employee.name[0]
-            )}
-          </Avatar>
-        }
-        action={
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete" onClick={deleteThePost}>
-              <DeleteOutlineIcon />
-            </IconButton>
-          </Tooltip>
-        }
-        title={employee.name}
-        subheader={moment(employee.startDate).format("MMM Do YYYY")}
-      />
-      <CardMedia
-        className={classes.media}
-        image={!employee.imageUrl ? DEFAULT_IMAGE : employee.imageUrl}
-        title="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textPrimary" component="p">
-          <span className={classes.focus}>{employee.name} </span>joined{" "}
-          <span className={classes.focus}>Khit Mee</span> on{" "}
-          <span>{moment(employee.startDate).format("MMM Do YYYY")}</span> and
-          the employee gain a salary of{" "}
-          <span className={classes.focus}> {employee.salary.amount} {employee.salary.currency} per month</span>.
-          You are paying {employee.name} in
-          <span className={classes.focus}>
-            {" "}
-            {calculateWhenToPay(employee.startDate)} days.{" "}
-          </span>
-          The employee phone number is {""}
-          <span className={classes.focus}>
-            {""}
-            {"+"}
-            {employee.phoneNumber}
-          </span>{" "}
-          {""}
-          {employee.address
-            ? `and the employee live in ${employee.address}.`
-            : null}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <Tooltip title={`Make a phone call to ${employee.name}`}>
-          <IconButton aria-label="Make Phone Call">
-            <a href={`tel:+${employee.phoneNumber}`} className={classes.link}>
-              <PhoneIcon />
-            </a>
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Edit the Post">
-          <IconButton
-            aria-label="Edit the Post"
-            component={Link}
-            to={`/editEmployee/${employee._id}/edit`}
-          >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Back to home page" className={classes.marginLeft}>
-          <IconButton aria-label="Back" component={Link} to="/dashboard">
-            <KeyboardBackspaceIcon />
-          </IconButton>
-        </Tooltip>
-      </CardActions>
-    </Card>
+    <Paper className={classes.root} elevation={2}>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <div className={classes.avatarContainer}>
+            <img
+              src={employee.imageUrl ? employee.imageUrl : DEFAULT_IMAGE}
+              className={classes.avatarImage}
+              alt="name"
+            />
+            <Typography variant="subtitle1" className={classes.title}>
+              {employee.name}
+            </Typography>
+          </div>
+          <div className={classes.section}>
+            <Typography variant="body1">
+              {employee.name}'s salary: {employee.salary.amount}{" "}
+              {employee.salary.currency} per month
+            </Typography>
+          </div>
+          <div className={classes.section}>
+            <Typography variant="body1">
+              {employee.name}'s started working data: {employee.startDate}
+            </Typography>
+          </div>
+          <div className={classes.section}>
+            <Typography variant="body1">
+              {employee.name}'s phone number:{" "}
+              <a href={`tel:${employee.phoneNumber}`} className={classes.aTag}>
+                {employee.phoneNumber}
+              </a>
+            </Typography>
+          </div>
+          {employee.address && (
+            <div className={classes.section}>
+              <Typography variant="body1">
+                {employee.name}'s address: {employee.address}
+              </Typography>
+            </div>
+          )}
+          <Divider className={classes.divider} />
+          <div className={classes.section}>
+            <Typography variant="subtitle1">Additional Information:</Typography>
+          </div>
+          <div className={classes.section}>
+            <Typography variant="body2">
+              {employee.name} is working at your company for{" "}
+              {calculateTimeDifference()}
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <img
+            alt="employee"
+            className={classes.media}
+            src={employee.imageUrl ? employee.imageUrl : DEFAULT_IMAGE}
+          />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }
