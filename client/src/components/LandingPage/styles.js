@@ -26,10 +26,21 @@ const useStyles = makeStyles((theme) => ({
   content: {
     color: "white",
     maxWidth: "700px",
-    textAlign: 'center'
+    textAlign: 'center', 
+    [theme.breakpoints.down('md')]: {
+      padding: '0px 20px', 
+    }
+  },
+  body: {
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.8rem', 
+    }
   },
   title: {
     marginBottom: "20px",
+    [theme.breakpoints.down('md')]: {
+      fontSize: '1.3rem'
+    }
   },
   button: {
     marginTop: "23px",
@@ -39,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
      background: '#ff8c00'
     },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.8rem', 
+    }
   },
   footer: {
     display: 'flex',
@@ -47,7 +61,11 @@ const useStyles = makeStyles((theme) => ({
     bottom: '15px',
     left: '50%', 
     transform: 'translate(-50%,-50%)', 
-    opacity: '0.5'
+    opacity: '0.5', 
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.7rem'
+    }
+
   },
   CopyRight: {
     display: 'inline-block', 

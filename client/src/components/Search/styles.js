@@ -5,6 +5,9 @@ export default makeStyles((theme) => ({
     width: "50%",
     height: "auto",
     margin: "30px auto",
+    [theme.breakpoints.down('md')] : {
+      width: '100%'
+    }
   },
   searchTitle: {
     marginTop: "10px",
@@ -17,7 +20,10 @@ export default makeStyles((theme) => ({
     flexDirection: 'column', 
     alignItems: "center",
     justifyContent: "center",
-    height: '100%'
+    height: '100%',
+    [theme.breakpoints.down('md')]: {
+      width: '80%'
+    }
   },
   chipInput: {
     margin: '20px 0px', 

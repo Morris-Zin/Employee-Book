@@ -16,7 +16,7 @@ const LandingPage = () => {
         <Typography variant="h4" className={classes.title}>
           Welcome to Employee Book✨
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" className={classes.body}>
           Having troubles managing your employees' data? Don't worry about that
           anymore! Employee-Book will manage your employee data better than
           anyone else.

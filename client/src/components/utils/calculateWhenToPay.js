@@ -1,22 +1,25 @@
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+import moment from "moment";
+
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 const calculateWhenToPay = (startDate) => {
-    // const salary = employee.salary.split(' ')[0]; 
-    let payMentDate = +startDate.split('-')[2] ;
-    const currentDate = new Date(); 
-    const days = currentDate.getDate()
-    const thisMonth = monthNames[currentDate.getMonth()]; 
-    
-    if (thisMonth !== 'April' && thisMonth !== 'Septhember' && thisMonth !== 'June' && thisMonth !== 'November')    {
-        payMentDate += 31
-    } else if (thisMonth === 'February') {
-        payMentDate += 29; 
-    } else {
-        payMentDate += 30;
-    }
-    return (payMentDate - days); 
-}; 
+  // const salary = employee.salary.split(' ')[0];
+  const inMilliseconds = new Date(startDate).getTime();
+  const dueDate = inMilliseconds + 1000 * 60 * 60 * 24 * 30;
+  return moment(dueDate).format('YYYY-MM-DD')
+};
 
 export default calculateWhenToPay;

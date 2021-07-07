@@ -13,6 +13,7 @@ import {
   IconButton,
   Tooltip,
   Divider,
+  Button,
   Grid,
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
@@ -93,6 +94,33 @@ export default function EmployeeContent({ employee }) {
               {employee.name} is working at your company for{" "}
               {calculateTimeDifference()}
             </Typography>
+          </div>
+          <div className={classes.section}>
+            <Typography variant="body2">
+              You are going to pay the salary in{" "}
+              {calculateWhenToPay(employee.startDate)}
+            </Typography>
+          </div>
+          {/* <div className={classes.section}>
+            <Typography variant="body2">
+              Have you paid your employee? If so please verify by clicking the
+              button below.
+            </Typography>
+            <Button
+              color="secondary"
+              className={classes.marginTop}
+              variant="outlined"
+            >
+              Verify
+            </Button>
+          </div> */}
+          <div className={classes.section}>
+            <Avatar
+              className={classes.goBack}
+              onClick={() => history.push("/dashboard")}
+            >
+              <KeyboardBackspaceIcon />
+            </Avatar>
           </div>
         </Grid>
         <Grid item xs={12} md={6}>

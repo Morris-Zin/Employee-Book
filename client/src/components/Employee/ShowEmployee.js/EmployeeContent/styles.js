@@ -14,7 +14,9 @@ export const useStyles = makeStyles((theme) => ({
       maxHeight: '100%', 
       borderRadius: '10px',
       objectFit: 'cover',
-      
+      [theme.breakpoints.down('md')] :{
+        maxHeight: '300px'
+      }
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -35,12 +37,8 @@ export const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold', 
         fontColor: 'black'  
     },
-    marginLeft: {
-      marginLeft: 'auto'
-    },
-    link: {
-      textDecoration: 'none', 
-      color: 'black'
+    marginTop: {
+      marginTop: '10px'
     },
     avatarImage: {
       width: '30px', 
@@ -56,13 +54,23 @@ export const useStyles = makeStyles((theme) => ({
       marginTop: '20px'
     }, 
     aTag: {
-      textDecoration: 'none',
       color: 'orange', 
-      fontWeight: 'bold'
+      fontWeight: 'bold', 
+      textDecoration: 'underline, '
     },
     divider: {
       width: '90%', 
       margin: '15px 0px'
+    },
+    goBack: {
+      width: '25px', 
+      height: '25px', 
+      background: 'orange',
+      marginTop: '30px',
+      cursor: 'pointer',
+      [theme.breakpoints.down('md')] : {
+        display: 'none'
+      }
     }
   }));
   
