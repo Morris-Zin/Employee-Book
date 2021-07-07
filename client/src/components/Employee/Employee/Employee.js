@@ -20,16 +20,7 @@ import EditIcon from "@material-ui/icons/Edit";
 const DEFAULT_IMAGE =
   "https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png";
 
-const Employee = ({
-  name,
-  startDate,
-  addedDate,
-  phoneNumber,
-  salary,
-  id,
-  setCurrentId,
-  imageUrl,
-}) => {
+const Employee = ({ name, startDate, id, setCurrentId, imageUrl }) => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -64,30 +55,9 @@ const Employee = ({
               className={"MuiTypography--subheading"}
               variant={"caption"}
             >
-              {name} joined Khit Mee on {startDate}.
-              Please click to view more about {name}.
+              {name} joined the company on {startDate}. Please click to view more
+              about {name}.
             </Typography>
-            {/* <Listitem
-              key={1}
-              Icon={PhoneIcon}
-              primaryText="Phone Number"
-              secondaryText={phoneNumber}
-              className={classes.listItemText}
-            />
-            <Listitem
-              key={2}
-              Icon={PaymentIcon}
-              primaryText="Salary"
-              secondaryText={salary}
-              className={`${classes.listItemText}`}
-            />
-            <Listitem
-              key={3}
-              Icon={WorkIcon}
-              primaryText="Date Started Working"
-              secondaryText={moment(startDate).format("YYYY MM DD")}
-              className={classes.listItemText}
-            /> */}
           </CardContent>
         </CardActionArea>
         <CardActions>

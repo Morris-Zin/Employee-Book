@@ -24,11 +24,10 @@ const employeeSchema = new Schema({
         currency: String,
     } ,
     address: String, 
+
     phoneNumber: Number, 
-    addedDate: {
-        type: Date, 
-        default: new Date()
-    }
+    
+    paidDate: Number
 }); 
 
 module.exports = mongoose.model('Employee', employeeSchema)

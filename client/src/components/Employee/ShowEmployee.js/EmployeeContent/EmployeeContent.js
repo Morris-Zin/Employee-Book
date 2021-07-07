@@ -2,29 +2,17 @@ import React from "react";
 import { useStyles } from "./styles";
 import moment from "moment";
 import {
-  Card,
   Paper,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions,
   Avatar,
   Typography,
-  IconButton,
-  Tooltip,
   Divider,
-  Button,
   Grid,
+  Button,
 } from "@material-ui/core";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import PhoneIcon from "@material-ui/icons/Phone";
 import { useDispatch } from "react-redux";
-import { deleteEmployee } from "../../../../actions/employees";
 import { useHistory } from "react-router";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import EditIcon from "@material-ui/icons/Edit";
-import { Link } from "react-router-dom";
-import calculateWhenToPay from "../../../utils/calculateWhenToPay";
+import { editEmployee } from "../../../../actions/employees";
 
 const DEFAULT_IMAGE =
   "https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png";
@@ -42,16 +30,30 @@ export default function EmployeeContent({ employee }) {
       .map((item, index) => (index === 1 ? ` ${item}` : item));
   };
 
-  const deleteThePost = () => {
-    dispatch(deleteEmployee(employee._id, history));
+  console.log(employee);
+
+  const onVerify = () => {
+    const onMonthInMilliseconds = 2.628e9;
+    dispatch(
+      editEmployee(
+        {
+          ...employee,
+          paidDate: +(employee.paidDate + onMonthInMilliseconds),
+          imageUrl: employee.imageUrl,
+        },
+        employee._id,
+        history
+      )
+    );
   };
+
   return (
     <Paper className={classes.root} elevation={2}>
       <Grid container>
         <Grid item xs={12} md={6}>
           <div className={classes.avatarContainer}>
             <img
-              src={employee.imageUrl ? employee.imageUrl : DEFAULT_IMAGE}
+              src={employee.imageUrl.length ? employee.imageUrl : DEFAULT_IMAGE}
               className={classes.avatarImage}
               alt="name"
             />
@@ -98,10 +100,11 @@ export default function EmployeeContent({ employee }) {
           <div className={classes.section}>
             <Typography variant="body2">
               You are going to pay the salary in{" "}
-              {calculateWhenToPay(employee.startDate)}
+              {moment(employee.paidDate).format("YYYY MM DD")}
             </Typography>
           </div>
-          {/* <div className={classes.section}>
+
+          <div className={classes.section}>
             <Typography variant="body2">
               Have you paid your employee? If so please verify by clicking the
               button below.
@@ -110,10 +113,11 @@ export default function EmployeeContent({ employee }) {
               color="secondary"
               className={classes.marginTop}
               variant="outlined"
+              onClick={onVerify}
             >
               Verify
             </Button>
-          </div> */}
+          </div>
           <div className={classes.section}>
             <Avatar
               className={classes.goBack}

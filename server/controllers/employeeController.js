@@ -2,6 +2,14 @@ const Employee = require("../models/Employee");
 const mongoose = require("mongoose");
 const { deleteS3Image } = require("../services/aws-services");
 
+const thirtyDays = 2.628e9;
+
+const calculateWhenToPay = (startDate) => {
+  const inMilliseconds = new Date(startDate).getTime();
+  const dueDate = inMilliseconds + thirtyDays;
+  return dueDate;
+};
+
 const getEmployees = async (req, res) => {
   try {
     const { userId } = req;
@@ -83,17 +91,7 @@ const showEmployee = async (req, res) => {
         .status(404)
         .json({ response: "No post with that id sorry 🤦‍♂️" });
 
-    const employees = await Employee.find(
-      { active: true, _id: id },
-      {
-        name: 1,
-        phoneNumber: 1,
-        addedDate: 1,
-        startDate: 1,
-        salary: 1,
-        address: 1,
-      }
-    );
+    const employees = await Employee.find({ active: true, _id: id });
     if (!employees.length) return res.redirect("back");
 
     res.json({ response: employees });
@@ -113,29 +111,32 @@ const addEmployee = async (req, res) => {
       ...postData,
       creator: userId,
     });
+
+    employee.paidDate = calculateWhenToPay(employee.startDate);
+
     await employee.save();
     const {
       active,
       name,
       phoneNumber,
-      addedDate,
       startDate,
       salary,
       _id,
       creator,
       imageUrl,
+      paidDate,
     } = employee;
     res.json({
       response: {
         active,
         name,
         phoneNumber,
-        addedDate,
         startDate,
         salary,
         _id,
         creator,
         imageUrl,
+        paidDate,
       },
     });
   } catch (error) {

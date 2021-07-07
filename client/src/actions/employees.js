@@ -64,7 +64,8 @@ export const createEmployee = (postData, history) => async (dispatch) => {
 export const editEmployee = (postData, id, history) => async (dispatch) => {
   try {
     dispatch({ type: LOADING_STARTED });
-
+    console.log('hi')
+    console.log(postData)
     const { data } = await EDIT_POST(postData, id);
     dispatch({ type: EDIT, payload: data.updatedEmployee });
 

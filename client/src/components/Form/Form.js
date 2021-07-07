@@ -38,7 +38,6 @@ const INITIAL_VALUES = {
   name: "",
   active: false,
   startDate: "",
-  addedDate: "",
   amount: "",
   address: "",
   phoneNumber: "",
@@ -106,7 +105,6 @@ export default function Form() {
               currency: formValues.currency,
             },
             active: true,
-            addedDate: new Date().toISOString(),
             imageUrl: url || "",
           },
           history
@@ -130,11 +128,7 @@ export default function Form() {
         )
       );
     }
-    // console.log({
-    //   ...formValues,
-    //   active: true,
-    //   addedDate: new Date().toISOString,
-    // });
+
   };
 
   const handleChange = (e) => {

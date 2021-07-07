@@ -53,7 +53,6 @@ const Empoyees = ({ setCurrentId }) => {
                     setCurrentId={setCurrentId}
                     name={employee.name}
                     startDate={employee.startDate}
-                    addedDate={employee.addedDate}
                     phoneNumber={employee.phoneNumber}
                     salary={employee.salary}
                     imageUrl={employee.imageUrl}
@@ -77,7 +76,7 @@ const Empoyees = ({ setCurrentId }) => {
                 <Skeleton variant="rect" width={210} height={118} />
               </Grid>
             ))}
-        {!searchByName && !salaryTags && <Paginate page={page || 1} />}
+        {!searchByName && !salaryTags && employees.length > 8 &&  <Paginate page={page || 1} />}
       </Grid>
     </>
   );
