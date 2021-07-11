@@ -1,8 +1,7 @@
 # Employee-Book
 Built on MERN stack.
 
-Tired of managing the employees' data in your book manually. Don't worry, I got you covered. You can easily managed your employee data using employee-book app.
-#You can view the app in following url.
+You can view the app live in the following url. 
 
  https://employee-book.netlify.app/
 
